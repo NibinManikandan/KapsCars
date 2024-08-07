@@ -1,0 +1,532 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Kaps Assured {% endblock %}
+{% block content %}
+
+<style>
+
+    .offer {
+        margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+        .footer-content {
+            padding: 20px;
+        }
+    }
+    /* Caps Assured Page CSS */
+    .hero-section {
+        position: relative;
+        text-align: center;
+        color: white;
+        width: 100%;
+    }
+    
+    .hero-video {
+        width: 100%;
+        height: auto;
+        display: none; /* Hide all videos by default */
+    }
+    
+    .desktop-video {
+        display: block; /* Show desktop video by default */
+    }
+    
+    .hero-text {
+        position: absolute;
+        bottom: 13%; /* Adjust this value as needed */
+        left: 50%; /* Center text horizontally */
+        transform: translateX(-50%);
+        width: 100%;
+        text-align: center;
+        font-weight: 500;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Ensure hero text is in front of the hero image */
+    }
+    
+    .hero-text h1, .hero-text p {
+        margin: 0;
+    }
+    
+    .hero-text p {
+        margin-top: 5px;
+    }
+    
+    /* Mobile View Adjustments */
+    @media (max-width: 500px) {
+        .hero-video {
+            display: none; /* Hide all videos */
+            width:90%;
+        }
+        .offer-container {
+            margin-top: 20px;
+        }
+        .mb-5 {
+            margin-bottom: 1rem !important;
+        }
+        .offer {     
+            margin-top: 70px;
+        }
+    
+        .mobile-video {
+            display: block; /* Show mobile video */
+            transform: scale(1.2); /* Zoom in the video */
+            height: 150%; /* Increase height to fill the screen */
+            object-fit: cover; /* Ensure the video covers the entire area */
+            width: 90.8%%;
+        }
+        
+        .hero-text {
+            bottom: 5%; /* Adjust this value as needed for mobile view */
+            font-size: 1.5em; /* Adjust font size for mobile view */
+        }
+        
+        .hero-text p {
+            font-size: .7em;
+        }
+    }
+    
+    /* iPad Air Screen Sizes */
+    @media (min-width: 501px) and (max-width: 820px) {
+        .hero-video {
+            display: none; /* Hide all videos */
+            width: 95%%;
+        }
+    
+        .tablet-video {
+            display: block; /* Show tablet video */
+            transform: scale(1.1); /* Slightly zoom in the video */
+            height: 120%; /* Increase height to fill the screen */
+            object-fit: cover; /* Ensure the video covers the entire area */
+        }
+    
+        .hero-text {
+            bottom: 10%; /* Adjust this value as needed for iPad Air view */
+            font-size: 1.5em; /* Adjust font size for iPad Air view */
+        }
+    
+        .hero-text p {
+            font-size: .7em;
+        }
+    }
+    
+    /* Mobile View Adjustments */
+    @media (max-width: 768px) {
+        
+        .hero-text {
+            left: 50%;
+            bottom: 35px; /* Adjust this value as needed for mobile view */
+            font-size: 1.5em; /* Adjust font size for mobile view */
+        }
+        .hero-text p {
+            font-size: .7em;
+        }
+        .navbar-toggle {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            cursor: pointer;
+            z-index: 12000!important; /* Ensure toggle is in front of the navbar content */
+        }
+    }
+
+    .lead {
+        margin-top: 25px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-align: start;
+    }
+
+    .display-6 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 1.5;
+        text-align: start;
+    }
+
+    .p-5 {
+        padding: .5rem !important;
+    }
+
+    .mt-4 {
+        margin-top: .5rem !important;
+    }
+
+    .offer {
+        text-align: start;
+        margin-left: 100px;
+        font-weight: bold;
+    }
+    .offer-container{
+        padding: 0px;
+        margin: 0px;
+    }
+    .offer-container a {
+        font-weight: 600;
+    }
+    .rounded-image {
+            border-radius: 10px;
+            width: 230px;
+            height: 400px;
+            object-fit: cover;
+
+        }
+
+    @media (min-width: 844px) and (max-width: 1024px) {
+        .offer {
+            text-align: start;
+            margin-top: 40px;
+            margin-bottom: -30px;
+            margin-left: 12px;
+        }
+        .rounded-image {
+            height: 410px;
+        }
+        .offer-container{
+            padding-left:25px ;
+
+        }
+        .mini-conatiner{
+            padding: 0px;
+        }
+    }
+    @media (min-width: 820px)  and (min-width: 844px) {
+        .rounded-image{
+            height: 374px;
+        }
+        
+        .offer-container{
+            padding-left:15px ;
+            
+        }
+       
+    }
+    @media (min-width: 768px) and (max-width: 820px) {
+        .rounded-image {
+            height: 410px;
+        }
+        .offer-container{
+            padding-left:25px ;
+
+        }
+        .mini-conatiner{
+            padding: 0px 70px;  
+            margin-left: -15px;          
+        }
+    }
+   
+    @media screen and (max-width: 912px) {
+        .rounded-image {
+            margin-bottom: 20px;
+        }
+    }
+    @media (max-width: 480px) {
+        .rounded-image {
+            border-radius: 10px;
+            height: 280px;
+            margin-bottom: 10px;
+
+        }
+
+        .offer-container {
+            margin: 0px;
+            padding: 0px;
+            text-align: start;
+            margin-top: 40px;
+        }
+
+        .offer {
+            text-align: start;
+            margin-top: 40px;
+            margin-bottom: -30px;
+            margin-left: 15px;
+        }
+    }
+
+    .uppercase-text {
+        text-transform: uppercase;
+    }
+
+    .kaps-button-container {
+        text-align: left; /* Aligns the button to the left */
+    }
+
+    .kaps-custom-button {
+        color: #347974;
+        border: 2px solid #347974;
+        padding: 8px 16px;
+        border-radius: 4px;
+        display: inline-block;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .kaps-custom-button:hover {
+        background-color: #347974;
+        color: #ffffff;
+    }
+
+    @media (max-width: 576px) {
+        .container {
+            margin: 0 !important;
+        }
+    }
+
+
+.container.my-5 {
+    margin-top: 30px; /* Default vertical space between containers */
+    margin-bottom: 30px; /* Default vertical space between containers */
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .container.my-5 {
+      margin: 0 !important; /* Remove top margin */
+    }
+
+    .container.my-5.py-5 {
+        padding-top: 0; /* Remove top padding */
+        padding-bottom: 0; /* Remove bottom padding */
+    }
+
+    .content-container {
+        margin-left: 15px; /* Add horizontal margin */
+        margin-right: 15px; /* Add horizontal margin */
+        text-align: end; /* Align text to start for mobile view */
+    }
+    .content-container  h3{
+        font-size: 22px;
+    }
+    .content-container  h4{
+        font-size: 18px;
+    }
+    .content-container  p{
+        font-size: 14px;
+    }
+
+}
+
+/* Desktop and Tablet View Adjustments */
+@media (min-width: 769px) {
+    .content-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* Align content to the top of the images */
+    }
+
+    .row.no-gutters {
+        margin-bottom: 20px; /* Add vertical gap */
+    }
+}
+
+/* Ensures proper alignment for images */
+img.w-100 {
+    display: block; /* Ensure images take full width */
+}
+
+.col-lg-6 {
+    display: flex;
+    align-items: flex-start; /* Align content to the top */
+}
+
+/* Mobile View Adjustments */
+@media (max-width: 768px) {
+    .col-lg-6 {
+        align-items: start; /* Center align content in mobile view */
+    }
+}
+
+
+/*play button */
+.video-container {
+    position: relative;
+    display: inline-block;
+}
+
+.video-thumbnail {
+    display: block;
+    border-radius: 15px; /* Adjust this value to make the image rounded */
+}
+
+.play-button-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.play-button {
+    width: 60px; /* Adjust the size of the play button */
+    height: 60px; /* Adjust the size of the play button */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.play-button:before {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 15px solid white; /* Adjust the size and color of the play icon */
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    position: relative;
+    left: 3px; /* Center the play icon */
+}
+
+.play-button-overlay:hover .play-button {
+    background-color: rgba(0, 0, 0, 0.8); /* Darken background on hover */
+}
+
+</style>
+
+<div class="hero-section">
+    <video class="hero-video desktop-video" autoplay muted loop>
+        <source src="{% static 'videos/desk.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <video class="hero-video tablet-video" autoplay muted loop>
+        <source src="{% static 'videos/tab.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <video class="hero-video mobile-video" autoplay muted loop>
+        <source src="{% static 'videos/mob.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="hero-text text-start">
+        <h1 style="font-weight: 500;">Kaps Assured</h1>
+        <p style="font-weight: 400;">Unlock the value of your money.</p>
+    </div>
+</div>
+
+<div class="offer-container" id="kaps-assured-sections">
+    <h1 class="offer fw-700 mb-5">What we offer</h1>
+
+    <div id="certified_inspection" class="container my-5 py-3 mini-conatiner ">
+        <div class="row no-gutters d-flex justify-content-between ">
+            <div class="col-lg-5 align-items-left ">
+                <div class="video-container">
+                    <a href="https://youtu.be/jGs0pwqxBIQ?si=harPrnzExJakVfmR" target="_blank">
+                        <img class="video-thumbnail w-100 shadow rounded-image" src="{% static 'images/gallery-1.jpg' %}" alt="Video Thumbnail" />
+                        <div class="play-button-overlay">
+                            <div class="play-button"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 ">
+                <div class="content-container">
+                    <h3 class="display-6 title-txts fw-bold ">
+                        <h3 class="display-6 uppercase-text my-0 ">Kaps Certified Inspection</h3>
+                    </h3>
+                    <h4 class="text-start my-0" style="font-weight: 500;">Transparency is at the core</h4>
+                    <p class="lead">Transparency is at the core of our operations. Our detailed inspection reports provide customers
+                        with a comprehensive overview of the vehicle's condition, including high-quality photographs from every angle.
+                        Highlighted features, engine and internal condition, transmission, body integrity, tyre health, and service history
+                        are meticulously documented to empower customers with knowledge and confidence.</p>
+                    <div class="kaps-button-container">
+                        <a href="{% url 'collections' %}" class="kaps-custom-button fs-6">
+                            Kaps Assured Cars <i class="fas fa-angle-right ms-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5  py-3 mini-conatiner " id="warrenty">
+        <div class="row no-gutters d-flex justify-content-between">
+            <div class="col-lg-5 order-lg-2">
+                <img class="w-100 shadow rounded-image" src="{% static 'images/warrenty.jpg' %}" />
+            </div>
+            <div class="col-lg-6 order-lg-1 ">
+                <div class="content-container ">
+                    <h3 class="display-6 uppercase-text my-0">Kaps Warranty</h3>
+                    <h4 class="text-start my-0" style="font-weight: 500;">Drive with confidence</h4>
+                    <p class="lead">Drive with confidence knowing that every KAPS vehicle comes with a 1-year
+                        warranty on the engine and gearbox. Our warranty terms and conditions ensure that you are
+                        protected from unexpected repairs, providing peace of mind for the road ahead.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5  py-3 mini-conatiner" id="exchange">
+        <div class="row no-gutters d-flex justify-content-between ">
+            <div class="col-lg-5 ">
+                <img class="w-100 shadow rounded-image " src="{% static 'images/kaps-ex.jpg' %}" />
+            </div>
+            <div class="col-lg-6 ">
+                <div class="content-container ">
+                    <h3 class="display-6 uppercase-text my-0">Exchange Assurance</h3>
+                    <h4 class="text-start my-0" style="font-weight: 500;">The value of your money</h4>
+                    <p class="lead">We offer comprehensive roadside assistance to ensure you are never left stranded.
+                        Our 24/7 assistance service covers a wide range of scenarios, from flat tires to engine trouble,
+                        ensuring you have support whenever and wherever you need it.</p>
+                    <div class="kaps-button-container">
+                        <a href="{% url 'sell_a_car' %}" class="kaps-custom-button fs-6">
+                            Sell your Car <i class="fas fa-angle-right ms-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 py-3 mini-conatiner" id="buyback">
+        <div class="row no-gutters d-flex justify-content-between ">
+            <div class="col-lg-5 order-lg-2">
+                <img class="w-100 shadow rounded-image" src="{% static 'images/about.jpg' %}" />
+            </div>
+            <div class="col-lg-6 order-lg-1 ">
+                <div class="content-container ">
+                    <h3 class="display-6 uppercase-text my-0">Buyback Assurance</h3>
+                    <h4 class="text-start my-0" style="font-weight: 500;">Your satisfaction is our priority</h4>
+                    <p class="lead">Experience peace of mind with our buyback assurance. We offer a guaranteed buyback
+                        option to provide customers with flexibility and confidence in their vehicle purchase.</p>
+                    <div class="kaps-button-container">
+                        <a href="{% url 'sell_a_car' %}" class="kaps-custom-button fs-6">
+                            Sell your Car <i class="fas fa-angle-right ms-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 py-3 mini-conatiner"  id="loan">
+      <div class="row no-gutters d-flex justify-content-between ">
+        <div class="col-lg-5">
+          <img class="w-100 shadow rounded-image" src="{% static 'images/easy.jpg' %}" />
+      </div>
+         
+          <div class="col-lg-6 ">
+              <div class="content-container ">
+                  <h3 class="display-6 uppercase-text my-0">Easy Loan Option</h3>
+                  <h4 class="text-start my-0" style="font-weight: 500;">Drive your dream car with KAPS</h4>
+                  <p class="lead">Experience the joy of car ownership with KAPS Easy Loan Options. Our hassle-free process offers flexible payment plans, competitive interest rates, and quick approvals, making it simpler than ever to drive away in your dream car. Let KAPS turn your car ownership dreams into reality!</p>
+                  <div class="kaps-button-container">
+                      <a href="{% url 'emi' %}" class="kaps-custom-button fs-6">
+                          Calculate EMI <i class="fas fa-angle-right ms-3"></i>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>
+
+{% include "footer.html" %}
+{% endblock %}

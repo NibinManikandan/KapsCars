@@ -1,0 +1,469 @@
+/* Car Details Section */
+
+.car-details-section {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.car-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.car-image img {
+  width: 100%;
+  height: auto;
+}
+
+.car-info {
+  padding: 20px;
+}
+
+.car-info h2 {
+  margin-bottom: 10px;
+  font-size: 1.5em;
+
+}
+
+.car-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.price {
+  font-size: 1.2em;
+  color: #000;
+}
+
+.price span {
+  font-weight: bold;
+}
+
+.inspection {
+  font-size: 1em;
+  color: #2e7d6b;
+}
+
+.inspection span {
+  font-weight: bold;
+
+}
+
+.buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.test-drive-btn:hover, .book-now-btn:hover {
+  background-color: #265e54;
+}
+
+/* Car Overview Section */
+
+.car-overview h1 {
+  font-size: 1.5em;
+}
+
+.overview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 1 21%;
+}
+
+.overview-item .label {
+  font-weight: 400;
+  font-size: 16px;
+  text-align: start;
+}
+
+.overview-item .value {
+  font-weight: 600;
+  font-size: 24px;
+  text-align: start;
+}
+
+@media (max-width: 768px) {
+  .overview-item {
+    flex: 1 1 48%;
+  }
+
+  .overview-item .label {
+    font-size: 8px;
+  }
+
+  .overview-item .value {
+    font-size: 12px;
+  }
+}
+
+/* Inspection Report Section */
+.inspection-report {
+  margin-bottom: 30px;
+}
+
+.inspection-report h2 {
+  margin-bottom: 20px;
+
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.report-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: start;
+}
+
+
+.report-buttons {
+  text-align: start;
+  margin-top: 20px;
+}
+
+.button {
+  text-decoration: none;
+  padding: 5px 15px;
+  border-radius: 5px;
+  margin: 0 10px;
+}
+
+.get-report {
+  background-color: #347974;
+  color: white;
+}
+
+.view-full-report {
+  background-color: #347974;
+  color: white;
+}
+
+.star {
+  color: gold;
+}
+
+/* Benefits Section */
+.benefits {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.benefits h1 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #2e7d6b;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+.benefits-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
+
+.benefit-item:hover {
+  background-color: #f1f1f1;
+}
+
+.benefit-item img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.benefit-item span {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.benefit-item .arrow {
+  font-size: 1.2em;
+  color: #bbb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .car-details-container, .container-over {
+      width: 100%;
+      padding: 10px;
+  }
+
+  .buttons {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .test-drive-btn, .book-now-btn {
+      flex: none;
+      width: 100%;
+
+  }
+
+  .benefits-list {
+      grid-template-columns: 1fr;
+  }
+
+}
+
+/*Over view */
+
+.car-overview {
+  padding: 20px;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Desktop view: 3 columns */
+  gap: 20px; /* Adjust the gap between items as needed */
+}
+
+.overview-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  margin-top: 5px;
+}
+
+@media (max-width: 768px) {
+  .overview-grid {
+      grid-template-columns: repeat(2, 1fr); /* Mobile view: 2 columns */
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-grid {
+      grid-template-columns: repeat(2, 1fr); /* Extra small devices: 2 columns */
+  }
+}
+
+/* inspection */
+
+.inspection-report {
+  padding: 50px 20px;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.report-table td {
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.star {
+  color: gold;
+}
+
+.report-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+@media (max-width: 768px) {
+  .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: -17px;
+  }
+
+}
+
+/* Button styles */
+.report-buttons .button {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: 2px solid;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Adjustments for mobile view */
+@media (max-width: 768px) {
+  .inspection-report {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .report-table td {
+    padding: 5px;
+  }
+
+  .report-buttons {
+    justify-content: center;
+  }
+
+  .report-buttons .button {
+    width: auto;
+    text-align: center;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 530px) {
+  .report-buttons .button {
+    width: 100%; /* Make buttons full width */
+    text-align: center;
+    display: flow-root;
+  }
+}
+
+/* Adjustments for desktop view */
+@media (min-width: 769px) {
+  .report-buttons {
+    justify-content: flex-start;
+  }
+
+  .report-buttons .button {
+    margin-right: 10px;
+  }
+}
+
+
+.showcase-section {
+  padding: 5px;
+  text-align: center;
+}
+
+.image-carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 20px; /* Add padding to the bottom */
+}
+
+.carousel-slide {
+  flex: 0 0 auto;
+  width: 400px; /* Adjust width for your design */
+  margin: 0 10px; /* Adjust margins for spacing */
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 250px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure images fill the container */
+}
+
+/* Thin scroller */
+.image-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.image-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.image-carousel::-webkit-scrollbar-thumb {
+  background: #EEEDEB;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.image-carousel:hover::-webkit-scrollbar-thumb {
+  background: #347974;
+}
+
+.image-carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 20px; /* Add padding to the bottom */
+}
+
+.carousel-slide {
+  flex: 0 0 auto;
+  width: 400px; /* Adjust width for your design */
+  margin: 0 10px; /* Adjust margins for spacing */
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 250px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure images fill the container */
+}
+
+/* Thin scroller */
+.image-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.image-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.image-carousel::-webkit-scrollbar-thumb {
+  background: #EEEDEB;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.image-carousel:hover::-webkit-scrollbar-thumb {
+  background: #347974;
+}

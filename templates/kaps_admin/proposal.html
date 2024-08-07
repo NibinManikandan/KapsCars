@@ -1,0 +1,77 @@
+{% extends 'kaps_admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<main id="main" class="main" style="background-color: white;">
+
+    <div class="pagetitle">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1>Proposals</h1>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Recent Sales -->
+    <div class="col-12">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <table class="table table-borderless datatable mt-3 custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>Contact</th>
+                            <th>Proposed By</th>
+                            <th>Car Brand</th>
+                            <th>Car Model</th>
+                            <th>Price</th>
+                            <th>Car Img</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for proposal in avail_proposals %}
+                        <tr class="align-middle">
+                            <td>{{ proposal.id }}</td>
+                                {% if proposal.proposed_user %}
+                                <td class="align-middle">{{proposal.proposed_user.name}}</td>
+                                {% else %}
+                                <td class="align-middle">{{proposal.proposed_staff.seller_name}}</td>
+                                {% endif %}
+                            
+                                {% if proposal.proposed_user %}
+                                <td class="align-middle">{{proposal.proposed_user.mobile}}</td>
+                                {% else %}
+                                <td class="align-middle">{{proposal.proposed_staff.phone}}</td>
+                                {% endif %}
+                            {% if proposal.proposed_user %}
+                            <td class="align-middle">User</td>
+                            {% else %}
+                            <td class="align-middle">Staff</td>
+                            {% endif %}
+                            <td class="align-middle">{{ proposal.brand_name.Available_brands }}</td>
+                            <td class="align-middle">{{ proposal.car_model }}</td>
+                            <td class="align-middle">{{ proposal.selling_price }}</td>
+                            <td class="align-middle">
+                                <a href="{{ proposal.images.url }}" download>
+                                    <img src="{{ proposal.images.url }}" alt="car" width="50" height="50">
+                                </a>
+                            </td>                           
+                            <td class="align-middle">
+                                <a class="badge btn btn-warning" href="{% url "delete_proposel" proposal.id %}" style="color: red; text-decoration: none;">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- End Recent Sales -->
+</main>
+
+{% endblock %}

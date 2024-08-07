@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, #464646 0%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .admin-login-container {
+            width: 90%;
+            max-width: 719px;
+            height: 513px;
+            max-height: 513px;
+            background-color: rgba(0, 0, 0, 0.65);
+            padding: 20px;
+            border-radius: 21px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .admin-login-form img {
+            width: 150px;
+            margin-bottom: 30px;
+        }
+        .admin-login-form input {
+            width: 100%;
+            max-width: 489px;
+            height: 70px;
+            margin-bottom: 30px;
+            padding: 10px;
+            border: 0.5px solid #787878;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px 0 rgba(94, 94, 94, 0.25);
+            background-color: #161616;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .admin-login-form input::placeholder {
+            color: #787878;
+        }
+        .admin-login-form button {
+            width: 100%;
+            max-width: 117px;
+            height: 39px;
+            background-color: #7FBDB9;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .admin-login-form button:hover {
+            background-color: #6fa9a6;
+        }
+        @media (max-width: 768px) {
+            .admin-login-container {
+                width: 100%;
+                width: 260px;
+                height: 330px;
+            }
+            .admin-login-form input {
+                max-width: 80%;
+                height: 45px;
+                margin-bottom: 20px;
+            }
+            .admin-login-form button {
+                max-width: 30%;
+                height: 35px;
+            }
+            .admin-login-container {
+                width: 95%;
+                padding: 10px;
+            }
+            .admin-login-form img {
+                width: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <form class="admin-login-form" method="post" action="">
+            {% csrf_token %}
+            <img src="{% static 'admin/images/kaps.svg' %}" alt="Logo">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

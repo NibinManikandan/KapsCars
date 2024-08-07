@@ -1,0 +1,122 @@
+/* Page Title */
+.pagetitle {
+    margin-bottom: 20px;
+}
+
+.pagetitle .breadcrumb {
+    background: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+/* Add Product Button */
+.addproductbutton {
+    text-align: right;
+}
+
+h1 {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.addproductbutton a {
+    display: inline-block;
+    background-color: #347974; /* Changed to black */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.addproductbutton a:hover {
+    background-color: #20a08c;
+}
+
+/* Custom Table */
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.custom-table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+}
+
+.custom-table tbody td {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px;
+    vertical-align: middle;
+}
+
+.custom-table tbody td img {
+    border-radius: 5px;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+}
+
+.bg-success {
+    background-color: #28a745;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+}
+
+.badge:hover {
+    opacity: 0.8;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .pagetitle .row {
+        flex-direction: column;
+    }
+
+    .pagetitle .col-md-6 {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .addproductbutton {
+        text-align: center;
+    }
+}
+
+/* Ensuring the whole page is responsive */
+body {
+    padding: 20px;
+}
+
+@media (max-width: 480px) {
+    .addproductbutton a {
+        padding: 8px 15px;
+    }
+
+    .custom-table thead th, .custom-table tbody td {
+        padding: 8px;
+    }
+
+    .custom-table tbody td img {
+        width: 40px;
+        height: 40px;
+    }
+}

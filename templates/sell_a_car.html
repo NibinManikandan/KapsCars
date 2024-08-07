@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Sell Your Car{% endblock %}
+
+{% block content %}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+<div class="container mt-5 sell-a-car">
+    <h1 class="text-start mb-4" style="font-weight: 700;">Sell Your Car</h1>
+    <div class="card" style="margin-bottom: 20px;">
+        <div class="card-body">
+            <form method="POST" action="{% url 'sell_a_car' %}" enctype="multipart/form-data" id="sellCarForm">
+                {% csrf_token %}
+                <div class="form-row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="carRegNumber" style="font-weight: 600;">Car Registration Number</label>
+                        <input type="text" name="car_reg_number" class="form-control" placeholder="Car Registration Number" id="carRegNumber" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="carBrand" style="font-weight: 600;">Select Your Brand</label>
+                        <select id="carBrand" name="car_brand" class="form-control" required>
+                            {% for brand in car_brands %}
+                                <option value="{{ brand }}">{{ brand }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            
+                <div class="form-row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="carModel" style="font-weight: 600;">Enter Your Model</label>
+                        <input type="text" name="car_model" class="form-control" placeholder="Car Model" id="carModel" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="registeredYear" style="font-weight: 600;">Registered Year</label>
+                        <input type="number" name="registered_year" class="form-control" placeholder="Registered Year" id="registeredYear" required>
+                    </div>
+                </div>
+            
+                <div class="form-row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="fuelType" style="font-weight: 600;">Select Fuel Type</label>
+                        <select id="fuelType" name="fuel_type" class="form-control" required>
+                            {% for type in car_fuel_types %}
+                                <option value="{{ type }}">{{ type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="kmDriven" style="font-weight: 600;">KM Driven</label>
+                        <input type="number" name="km_driven" class="form-control" placeholder="KM Driven" id="kmDriven" required>
+                    </div>
+                </div>
+            
+                <div class="form-row mb-3">
+                    <div class="col-md-6 mb-3">
+                        <label for="sellingPrice" style="font-weight: 600;">Selling Price</label>
+                        <input type="number" name="selling_price" class="form-control" placeholder="Selling Price" id="sellingPrice" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="carImage" style="font-weight: 600;">Image</label>
+                        <input type="file" name="images" class="form-control-file" id="carImage">
+                    </div>
+                </div>
+            
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom" style="font-weight: 600;">Send Proposal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+    .sell-car-form label {
+        font-weight: 600;
+    }
+    .btn-custom {
+        background-color: #2a7464;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+    }
+    .btn-custom:hover {
+        background-color: #ff471a;
+    }
+    .container {
+        max-width: 800px;
+    }
+    .card {
+        margin: 0 auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-body {
+        padding: 20px;
+    }
+    @media (max-width: 768px) {
+        .form-row {
+            flex-direction: column;
+        }
+        .form-row .col-md-6 {
+            width: 100%;
+        }
+        .sell-a-car h1 {
+            font-size: 24px;
+        }
+    }
+</style>
+
+{% endblock %}

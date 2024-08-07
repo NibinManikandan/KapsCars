@@ -1,0 +1,766 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+  /* Custom Styles */
+    .component-container{
+    padding: 30px 45px;
+    }
+    .hero-about {
+    height: 85vh; /* Make the section take up 80% of the viewport height */
+    display: flex; /* Use Flexbox for centering */
+    align-items: center; /* Vertically center content */
+    justify-content: flex-start; /* Horizontally align content to the start */
+    text-align: start; /* Left align text within the text-content div */
+    color: white; /* Set text color */
+    }
+
+    .text-content {
+      max-width: 800px; 
+    }
+
+    .text-content h1 {
+      font-size: 70px;
+      font-weight: 500;
+    }
+
+    .text-content p {
+      font-size: 24px;
+      font-weight: 400;
+    }
+    .content-container h3{
+      font-size: 28px;
+      font-weight: 700;
+    }
+    .content-container p{
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .img-container{
+      width: 100%;
+      height: 450px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .component-container {
+        padding: 20px 10px; 
+      }
+      
+      .text-content h1 {
+        font-size: 40px;
+      }
+      
+      .text-content p {
+        font-size: 18px;
+      }
+      .img-container{
+      width: 100%;
+      height: auto;
+      margin-bottom: 0px;
+    }
+    .hero-about {
+      height: 60vh; /* Make the section take up 80% of the viewport height */
+      display: flex; /* Use Flexbox for centering */
+      align-items: center; /* Vertically center content */
+      justify-content: flex-start; /* Horizontally align content to the start */
+      text-align: start; /* Left align text within the text-content div */
+      color: white; /* Set text color */
+      
+      }
+    }
+
+    @media (max-width = 500px){
+      .custom-section img {
+        width: 100%;
+        max-width: 600px;
+        height: 290px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+    }
+  
+  .custom-section {
+    margin: 30px 0;
+    border-radius: 5px;
+    width: 550px;
+  }
+
+  .custom-section img {
+    width: 100%;
+    max-width: 550px;
+    height: 330px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 18px;
+  }
+
+  .custom-section h2 {
+    font-size: 28px;
+    margin-top: 10px;
+    font-weight: 700;
+  }
+
+  .custom-section p {
+    font-size: 17px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  .custom-section .text-start a {
+    color: #347974;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .custom-section .text-start a:hover {
+    text-decoration: underline;
+  }
+
+ /* Custom Media Queries for Mobile Screens */
+  @media screen and (max-width: 768px) {
+    .custom-section {
+      padding-left: 0;
+      padding-right: 0;
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+    }
+    }
+  /* Custom Styles */
+  .img-fluid {
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    /* max-height: 100%; */
+    border-radius: 10px;
+  }
+
+  @media screen and (max-width :844px) {
+    .img-fluid {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+  }
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .align-items-center {
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    .row {
+      text-align: left;
+    }
+
+    .order-md-1 {
+      order: 0;
+    }
+
+    .order-md-0 {
+      order: 1;
+    }
+  }
+  /* Media query to handle mobile view */
+  @media (max-width: 767.98px) {
+    /* Ensure images come first */
+    .img-container {
+      order: -1;
+    }
+
+    /* Ensure content comes after images */
+    .content-container {
+      order: 0;
+      padding-top: 30px;
+    }
+  }
+
+/--------------------------------------------------------/
+
+    /* counter style */
+    .counter {
+        background-color: #f5f5f5;
+        padding: 20px 0;
+        border-radius: 5px;
+        margin-bottom: 35px;
+    }
+
+    .count-title {
+        font-size: 40px;
+        font-weight: 500;
+        margin-top: 10px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .count-text {
+        font-size: 13px;
+        font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 0;
+        text-align: center;
+
+    }
+
+    .fa-2x {
+        margin: 0 auto;
+        float: none;
+        display: table;
+        color: #4ad1e5;
+        
+    }
+   
+    /* Mobile view adjustments */
+    @media (max-width: 768px) {
+        .counter {
+            padding: 15px 0; /* Reduced padding for mobile view */
+            margin-bottom: 20px; /* Reduced margin-bottom for mobile view */
+        }
+
+        .count-title {
+            font-size: 24px; /* Smaller font size for mobile view */
+        }
+
+        .count-text {
+            font-size: 12px; /* Smaller font size for mobile view */
+        }
+
+        .container .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+     
+        .col {
+            flex: 1 1 50%; /* Two items per row */
+            max-width: 50%;
+            box-sizing: border-box;
+            padding: 10px; /* Add padding between items */
+        }
+    }
+    .kaps-button-container {
+        text-align: left; /* Aligns the button to the left */
+    }
+
+    .kaps-custom-button {
+        color: #347974;
+        border: 1px solid #2a7464;
+        padding: 8px 16px;
+        border-radius: 4px;
+        display: inline-block;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .kaps-custom-button:hover {
+        background-color: #347974;
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+/* address section */
+ .card-address {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #c3c0c0;
+  height: calc(100% + 20px); 
+}
+
+.address-section-address
+{
+  display: flex;
+  justify-content: start;
+  margin-top: 20px;
+  
+}
+.email-section-address
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+
+  
+}
+.phone-section-address {
+  display: flex;
+  justify-content: end;
+    margin-top: 20px;
+
+
+}
+
+.address-section-address i,
+.email-section-address i,
+.phone-section-address i {
+  color: #104545; 
+  font-size: 1.2rem; 
+}
+
+.card-title-address {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text-address,
+a {
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+  text-decoration: none;
+  color: black;
+}
+
+a:hover {
+  color: blue;
+}
+
+@media (max-width: 768px) {
+  
+  .address-section-address
+{
+  display: flex;
+  justify-content: start;
+  margin-bottom: 10px;
+  
+}
+.email-section-address
+{
+  display: flex;
+  justify-content: start;
+  margin-bottom: 10px;
+
+  
+}
+.phone-section-address {
+  display: flex;
+  justify-content: start;
+
+}
+
+} 
+/--------------------------------------------------------/
+.lead {
+        margin-top: 5px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        text-align: start;
+    }
+
+    .display-6 {
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 1.5;
+        text-align: start;
+    }
+
+    .p-5 {
+        padding: .5rem !important;
+    }
+
+    .mt-4 {
+        margin-top: .5rem !important;
+    }
+
+    .offer {
+        text-align: start;
+        margin-top: 40px;
+        margin-bottom: -30px;
+        margin-left: 100px;
+        font-weight: bold;
+    }
+    .offer-container{
+        padding: 0px;
+        margin: 0px;
+    }
+    .offer-container a {
+        font-weight: 600;
+    }
+    .rounded-image {
+      border-radius: 10px;
+      width: 230px;
+      height: 400px;
+
+    }
+    .mini-conatiner{
+      width: 100%;
+      max-width: 1250px;
+            padding: 0px;
+        }
+
+    @media (min-width: 844px) and (max-width: 1024px) {
+        .offer {
+            text-align: start;
+            margin-top: 40px;
+            margin-bottom: -30px;
+            margin-left: 12px;
+        }
+        .rounded-image {
+            height: 410px;
+        }
+        .offer-container{
+            padding-left:25px ;
+
+        }
+        .mini-conatiner{
+            padding: 0px;
+        }
+    }
+    @media (min-width: 820px)  and (min-width: 844px) {
+        .rounded-image{
+            height: 374px;
+        }
+        
+        .offer-container{
+            padding-left:15px ;
+            
+        }
+       
+    }
+    @media (min-width: 768px) and (max-width: 820px) {
+        .rounded-image {
+            height: 410px;
+        }
+        .offer-container{
+            padding-left:25px ;
+
+        }
+        .mini-conatiner{
+            padding: 0px 0px;            
+        }
+    }
+   
+    @media screen and (max-width: 912px) {
+        .rounded-image {
+            margin-bottom: 20px;
+        }
+    }
+    @media (max-width: 480px) {
+        .rounded-image {
+            border-radius: 10px;
+            height: 215px;
+            margin-bottom: 10px;
+
+        }
+
+        .offer-container {
+            margin: 0px;
+            padding: 0px;
+            text-align: start;
+        }
+
+        .offer {
+            text-align: start;
+            margin-top: 40px;
+            margin-bottom: -30px;
+            margin-left: 15px;
+        }
+        .custom-section-content{
+          padding: 15px;
+        }
+
+        .col-lg-6 {
+          padding: 10px;
+        }
+    }
+/* Ensures proper alignment for images */
+img.w-100 {
+    display: block; /* Ensure images take full width */
+}
+
+.hero-about {
+  height: 85vh; /* Make the section take up 85% of the viewport height */
+  position: relative; /* Positioning for text overlay */
+  display: flex; /* Use Flexbox for centering */
+  align-items: center; /* Vertically center content */
+  justify-content: flex-start; /* Horizontally align content to the start */
+  text-align: start; /* Left align text within the text-content div */
+  color: white; /* Set text color */
+  overflow: hidden; /* Hide any overflow */
+}
+
+.hero-about img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure the image covers the entire section */
+  position: absolute; /* Positioning for layering */
+  top: 0;
+  left: 0;
+  z-index: 0; /* Place image behind text */
+}
+
+.text-content {
+  position: relative; /* Positioning for z-index */
+  z-index: 1; /* Ensure text content is above the background image */
+  padding: 20px; /* Add some padding for better readability */
+}
+
+@media (max-width: 768px) {
+  .hero-about {
+      height: 70vh; /* Adjust height for smaller screens */
+  }
+  .text-content {
+      padding: 10px; /* Adjust padding for smaller screens */
+  }
+}
+
+</style>
+
+<!-- hero-section -->
+<div class="component-container hero-about">
+    <img src="{% static 'images/ban-2.jpg' %}" alt="">
+  <div class="text-content">
+    <h1>Miles of trust on every road.</h1>
+    <p>We're committed to bridging the gap between reliability and the open road, ensuring that every journey begins with trust.</p>
+  </div>
+</div>
+
+<div class="component-container mt-5">
+  <div class="row">
+    <div class="col-md-6 custom-section ps-0 pe-md-5 pe-0">
+      <img src="{% static 'images/kaps-about.jpg' %}" alt="KAPS Assured">
+      <div class="custom-section-content">
+        <h2>KAPS Assured</h2>
+        <p>We are dedicated to making car ownership accessible, simple, and delightful.
+          In a country where four wheels fuel dreams, less than two percent of young Indians
+          are satisfied with their used car experience. Our mission is to transform this narrative.
+          We want the nation to trust our approach, believe in our quality, and enjoy our cars.
+          By doing so, we aim to inspire and propel a billion dreams.
+          Discover the excellence of KAPS Assured® cars.
+        </p>
+        <div class="kaps-button-container">
+          <a href="{% url 'kaps_assured' %}" class="kaps-custom-button fs-6">
+              Kaps Assured <i class="fas fa-angle-right ms-3"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 custom-section ps-0 ps-md-5 pe-0  ">
+      <img src="{% static 'images/gallery-2.jpg' %}" alt="Happy Customers">
+      <div class="custom-section-content">
+        <h2>Happy Customers</h2>
+        <p>10,000+ Happy Customers: Here's What One Has to Say
+          'Weekends are our time to explore and unwind. Thanks to KAPS, our Kia Seltos has brought our family closer,
+          filled our memories and photo feeds with joy, and made Mondays feel less daunting. KAPS has truly transformed
+          our driving experience!
+        </p>
+        <div class="kaps-button-container">
+          <a href="{% url 'kaps_assured' %}" class="kaps-custom-button fs-6">
+              Kaps Assured <i class="fas fa-angle-right ms-3"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!----- counter-section ------>
+<div class="component-container ">
+  <div class="row text-center">
+    <div class="col">
+      <div class="counter">
+        <h2 class="timer count-title count-number" data-to="20" data-speed="1500">+</h2>
+        <p class="count-text">Years Of Experience</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="counter">
+        <h2 class="timer count-title count-number" data-to="2000" data-speed="1500">+</h2>
+        <p class="count-text">Satisfied Clients</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="counter">
+        <h2 class="timer count-title count-number" data-to="20" data-speed="1500">+</h2>
+        <p class="count-text">Vehicle Brands Available</p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<!-- about teams & user experience -->
+<div class="component-container" >
+
+  <div class="container my-5 py-3 mini-conatiner ">
+      <div class="row no-gutters d-flex justify-content-between ">
+          <div class="col-lg-5 align-items-left ">
+              <img class="w-100 shadow rounded-image" src="{% static 'images/team.jpg' %}" />
+          </div>
+          <div class="col-lg-6 ">
+              <div class="content-container">
+                  <h3 class="display-6 title-txts fw-bold ">
+                      <h3 class="display-6 uppercase-text my-0 ">Team KAPS</h3>
+                  </h3>
+                  <p class="lead">At Kaps Cars, we pride ourselves on delivering a seamless, personalized customer service experience. From the moment you walk into our showroom to the finalization of your purchase, our dedicated team ensures a welcoming atmosphere with expert, tailored advice.</p>
+                  <p class="lead"> This mindset not only helps us deliver exceptional service but also attracts and retains top talent, whether on our shop floors, in our workshops, or as ambassadors representing us to our valued customers.</p>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="container my-5  py-3 mini-conatiner ">
+      <div class="row no-gutters d-flex justify-content-between">
+          <div class="col-lg-5 order-lg-2">
+              <img class="w-100 shadow rounded-image" src="{% static 'images/premium.jpg' %}" />
+          </div>
+          <div class="col-lg-6 order-lg-1 ">
+              <div class="content-container ">
+                  <h3 class="display-6 uppercase-text my-0">Our Premium Experience</h3>
+                  <p class="lead">At Kaps Cars, we pride ourselves on delivering a seamless, personalized customer service experience. From the moment you walk into our showroom to the finalization of your purchase, our dedicated team ensures a welcoming atmosphere with expert, tailored advice.</p>
+                  <p class="lead">We offer state-of-the-art facilities and comprehensive services to keep your vehicle in peak condition. Valuing your time and convenience, we provide efficient maintenance and repair services. </p>
+
+                </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!-- Kaps company address -->
+ <div class="component-container mt-5  mb-5">
+  <div class="card-address  p-3">
+    <div class="row align-items-start">
+      <div class="col-md-4 col-12 mb-3 mb-md-0  address-section-address">
+        <i class="fas fa-map-marker-alt me-2 align-self-start" style=" color: #104545;"></i>
+        <div>
+          <h5 class="card-title-address mb-1">Kaps Cars Pvt Ltd</h5>
+          <p class="card-text-address mb-1">Meenchanda Mini Bypass road,</p>
+          <p class="card-text-address mb-1">Thiruvannur, Kozhikode,</p>
+          <p class="card-text-address mb-1">Kerala - 673029</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-12 mb-3 mb-md-0 email-section-address ">
+        <i class="fas fa-envelope me-2 align-self-start" style=" color: #104545;"></i>
+        <a href="mailto:Info@kapscars.com">Info@kapscars.com</a>
+      </div>
+      <div class="col-md-4 col-12  phone-section-address ">
+        <i class="fas fa-phone me-2 align-self-start" style=" color: #104545;"></i>
+        <div>
+          <a href="tel:+919895769044" class="d-block">+91 98957 69044</a>
+          <a href="tel:+918891349888" class="d-block">+91 88913 49888</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+
+ <!-- Scrripts section -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+  (function ($) {
+    $.fn.countTo = function (options) {
+      options = options || {};
+
+      return $(this).each(function () {
+        var settings = $.extend({}, $.fn.countTo.defaults, {
+          from: $(this).data('from'),
+          to: $(this).data('to'),
+          speed: $(this).data('speed'),
+          refreshInterval: $(this).data('refresh-interval'),
+          decimals: $(this).data('decimals')
+        }, options);
+
+        var loops = Math.ceil(settings.speed / settings.refreshInterval),
+            increment = (settings.to - settings.from) / loops;
+
+        var self = this,
+            $self = $(this),
+            loopCount = 0,
+            value = settings.from,
+            data = $self.data('countTo') || {};
+
+        $self.data('countTo', data);
+
+        if (data.interval) {
+          clearInterval(data.interval);
+        }
+        data.interval = setInterval(updateTimer, settings.refreshInterval);
+
+        render(value);
+
+        function updateTimer() {
+          value += increment;
+          loopCount++;
+
+          render(value);
+
+          if (typeof(settings.onUpdate) == 'function') {
+            settings.onUpdate.call(self, value);
+          }
+
+          if (loopCount >= loops) {
+            $self.removeData('countTo');
+            clearInterval(data.interval);
+            value = settings.to;
+
+            if (typeof(settings.onComplete) == 'function') {
+              settings.onComplete.call(self, value);
+            }
+          }
+        }
+
+        function render(value) {
+          var formattedValue = settings.formatter.call(self, value, settings);
+          $self.html(formattedValue + '+');
+        }
+      });
+    };
+
+    $.fn.countTo.defaults = {
+      from: 0,
+      to: 0,
+      speed: 1000,
+      refreshInterval: 100,
+      decimals: 0,
+      formatter: formatter,
+      onUpdate: null,
+      onComplete: null
+    };
+
+    function formatter(value, settings) {
+      return value.toFixed(settings.decimals);
+    }
+  }(jQuery));
+
+  jQuery(function ($) {
+    $('.count-number').data('countToOptions', {
+      formatter: function (value, options) {
+        return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+      }
+    });
+
+    $('.timer').each(count);
+
+    function count(options) {
+      var $this = $(this);
+      options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+      $this.countTo(options);
+    }
+  });
+</script>
+
+
+
+{% include "footer.html" %}
+{% endblock %}

@@ -1,0 +1,629 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Car Details
+{% endblock %}
+{% block content %}
+  <style>
+    /*banner*/
+    .carousel-inner {
+      border-radius: 15px;
+    }
+    
+    .carousel-inner {
+      height: 80vh; /* Set the desired height for the carousel */
+    }
+    
+    .carousel-item img {
+      width: 90%;
+      height: auto;
+    }
+    
+    /* Desktop view */
+    @media (min-width: 1025px) {
+      #carouselExampleIndicators {
+        margin: 60px;
+      }
+      .details{
+          margin-left: 35px;
+      }
+    }
+
+    .test-drive-btn, .book-now-btn {
+      padding: 20px;
+      position: relative;
+      background-color: #2e7d6b;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      flex: 1;
+      margin: 0 5px;
+  }
+  
+  .car-info .buttons {
+      display: flex;
+      gap: 10px; /* Space between buttons */
+      margin-top: 20px;
+      width: 100%; /* Make sure buttons take up the full width */
+      justify-content: start; /* Align items at the start */
+  }
+  
+  .car-info .buttons button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      font-size: 16px;
+      cursor: pointer;
+      flex: 1; /* Ensure buttons take equal space */
+      max-width: none; /* Ensure buttons do not have a max width */
+  }
+  
+  .car-info .test-drive-btn {
+      background-color: white;
+      color: #2e7d6b;
+      border: 1px solid #2e7d6b;
+      border-radius: 4px;
+  }
+  
+  .car-info .book-now-btn {
+      background-color: #2e7d6b;
+      color: white;
+      border: none;
+      border-radius: 4px;
+  }
+  
+  .car-info .buttons img {
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      vertical-align: middle;
+  }
+
+    @media (max-width: 500px) {
+      .buttons-container {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: #ffffff;
+          box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+          padding: 10px 0;
+          display: flex;
+          flex-direction: row; /* Ensure buttons are in a row */
+          justify-content: space-between;
+          align-items: center;
+          z-index: 1000;
+      }
+  
+      .button-link {
+          flex: 1; /* Allow buttons to take equal space */
+          text-align: center; /* Center the text */
+      }
+  
+      .test-drive-btn, .book-now-btn {
+          width: 100%; /* Ensure buttons take full width */
+          padding: 15px 0; /* Adjust padding for better touch targets */
+          font-size: 1em; /* Maintain consistent font size */
+          border: none; /* Remove border for cleaner look */
+          border-radius: 0; /* Remove border radius for full width buttons */
+      }
+  
+      .test-drive-btn {
+          background-color: white;
+          color: #2e7d6b;
+          border-right: 1px solid #ddd; /* Border between buttons */
+      }
+  
+      .book-now-btn {
+          background-color: #2e7d6b;
+          color: white;
+      }
+  
+      .button-icon {
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+      }
+  }
+    
+    /* Mobile and iPad views */
+    @media (max-width: 1024px) {
+      #carouselExampleIndicators {
+        margin: 0; /* Remove margin for mobile and iPad views */
+      }
+    
+      .carousel-inner {
+        height: auto; /* Adjust height if necessary for mobile */
+      }
+    
+      .carousel-item img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .overview-item .value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    /*car details*/
+    @media (max-width: 300px) {
+      .overview-grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns */
+        grid-template-rows: auto auto; /* 2 rows */
+      }
+    
+      .overview-item:nth-child(9) {
+        grid-column: 1 / -1; /* Span all columns */
+      }
+    }
+    
+    .car-info {
+      padding: 20px;
+    }
+    
+    .car-info h2 {
+      margin-bottom: 10px;
+    }
+    
+    .car-info p {
+      margin: 5px 0;
+    }
+    
+    .car-info .price span {
+      font-weight: bold;
+      color: #2e7d6b;
+    }
+    
+    .car-info .inspection span {
+      font-weight: bold;
+      color: #2e7d6b;
+    }
+
+    /*Similar car*/
+    
+    .showcase-section {
+      padding: 5px;
+      text-align: center;
+    }
+    .showcase-section h2 {
+      text-align: start;
+      margin-left: 30px;
+    }
+    
+    .image-carousel-wrapper {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .image-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 80px;
+    }
+    
+    .carousel-slide {
+      flex: 0 0 auto;
+      width: 400px;
+      margin: 0 10px;
+      text-align: start;
+      scroll-snap-align: start;
+    }
+    
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+    
+    .image-carousel::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    .image-carousel::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    
+    .image-carousel::-webkit-scrollbar-thumb {
+      background: #eeedeb;
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+    
+    .image-carousel:hover::-webkit-scrollbar-thumb {
+      background: #347974;
+    }
+    
+    @media (max-width: 768px) {
+      .carousel-slide {
+        width: 95%;
+        margin: 5px;
+      }
+    
+      .carousel-inner {
+        border-radius: 0px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .report-buttons {
+        display: flex;
+        flex-direction: column;
+      }
+      .report-table {
+        margin-right: 0px;
+      }
+    
+      .report-buttons a {
+        margin-bottom: 10px; /* Add some space between buttons */
+      }
+      .benefits span {
+        font-size: 12px;
+      }
+    }
+    
+  </style>
+
+  <!-- Car Banner Section -->
+
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      {% for image in car_images %}
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+          <img src="{{ image.Car_image.url }}" class="d-block w-100" alt="car_images" />
+        </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+  <div class="details">
+    <!-- Car Details Section -->
+    <div class="car-info" style="margin: 10px; margin-top: 5px;">
+      <h2>{{cars.brand.Available_brands}} {{ cars.model_name }}</h2>
+      <p style="font-weight: 400; color: black;">{{ cars.km_driven }} km . {{ cars.fuel_type }} . {{ cars.transmission }}</p>
+      <p class="price">
+        Price: <span style="font-weight: 700;">₹ {{ cars.price }} Lakh</span>
+        {% if car.emi == 'No' %}
+          Emi Not Available
+        {% else %}
+          Emi Available
+        {% endif %}
+      </p>
+      <p class="inspection" style="font-weight: 700;">
+        Kaps Certified inspection rating: <span>{{ cars.inspection_rating }}/10</span>
+      </p>
+      <div class="buttons-container mt-4">
+        <a href="{% url 'test_drive' cars.id %}" class="button-link">
+            <button class="test-drive-btn">
+                <img src="{% static 'images/test.svg' %}" alt="Test Drive" class="button-icon" />
+                Test Drive
+            </button>
+        </a>
+        <a href="{% url 'book_now' cars.id %}" class="button-link">
+            <button class="book-now-btn">
+                <img src="{% static 'images/booknow.svg' %}" alt="Book Now" class="button-icon" />
+                Book Now
+            </button>
+        </a>
+      </div>
+
+    </div>
+
+    {% if messages %}
+    <div class="toast-container position-fixed bottom-0 w-100 right-0 p-3" style="z-index: 11;">
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notification</strong>
+                <small>Just now</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Car Over View -->
+
+    <section class="car-overview" style="margin: 30px;">
+      <h1 class="text-start fw-bold pt-3" style="font-size: 1.5em">Car Overview</h1>
+      <div class="overview-grid">
+        <div class="overview-item">
+          <span class="label">Model</span>
+          <span class="value">{{ cars.reg_month }} {{ cars.reg_year }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">Reg. Year</span>
+          <span class="value">{{ cars.reg_month }} {{ cars.reg_year }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">Fuel</span>
+          <span class="value">{{ cars.fuel.Available_fuel_type }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">KM Driven</span>
+          <span class="value">{{ cars.km_driven }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">Transmission</span>
+          <span class="value">{{ cars.transmission.Transmission_type }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">Insurance Validity</span>
+          <span class="value">{{ cars.insurance_validity }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">Insurance Type</span>
+          <span class="value">{{ cars.insurance_type }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">No. of owner(s)</span>
+          <span class="value">{{ cars.no_of_owners }}</span>
+        </div>
+        <div class="overview-item">
+          <span class="label">RTO</span>
+          <span class="value">{{ cars.rto }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inspection Report Section -->
+
+    <section class="inspection-report pb-5 pt-5" style="margin: 30px;">
+      <h2 class="text-start fw-bold">Inspection Report</h2>
+
+      <table class="report-table">
+        <tr>
+          <td class="text-start ps-3">
+            <img src="{% static 'images/Vector.svg' %}" alt="Engine" style="width: 23px; height: 23px; margin-right: 10px" />
+            Engine
+          </td>
+          <td>
+            <span class="star">★</span> {{ cars.engine_rating }}/10
+          </td>
+          <td class="text-start ps-3">
+            <img src="{% static 'images/suspension 1.svg' %}" alt="Suspension" style="width: 23px; height: 23px; margin-right: 10px" />Suspension
+          </td>
+          <td>
+            <span class="star">★</span> {{ cars.suspension_rating }}/10
+          </td>
+        </tr>
+        <tr>
+          <td class="text-start ps-3">
+            <img src="{% static 'images/disc-brake 1.svg' %}" alt="Brakes" style="width: 23px; height: 23px; margin-right: 10px" />Brakes
+          </td>
+          <td>
+            <span class="star">★</span> {{ cars.brakes_rating }}/10
+          </td>
+          <td class="text-start ps-3">
+            <img src="{% static 'images/automatic-transmission 1.svg' %}" alt="Transmission" style="width: 23px; height: 23px; margin-right: 10px" />Transmission
+          </td>
+          <td>
+            <span class="star">★</span> {{ cars.transmission_rating }}/10
+          </td>
+        </tr>
+        <tr>
+          <td class="text-start ps-3">
+            <img src="{% static 'images/car-seat 1.svg' %}" alt="Interior" style="width: 23px; height: 23px; margin-right: 10px" />Interior
+          </td>
+          <td>
+            <span class="star">★</span> {{ cars.interior_rating }}/10
+          </td>
+          <td class="text-start ps-3">
+            <img src="{% static 'images/car (2) 1.svg' %}" alt="Wheels & Tyres" style="width: 23px; height: 23px; margin-right: 10px" />Wheels & Tyres
+          </td>
+          <td>
+            <span class="star">★</span> {{ cars.wheels_tyres_rating }}/10
+          </td>
+        </tr>
+      </table>
+      <div class="report-buttons pt-3">
+        <a href="#" class="button view-full-report">View Full Report</a>
+      </div>
+    </section>
+
+    <!-- Benifit Section -->
+
+    <section class="benefits" style="margin: 40px;">
+      <h1 class="text-start fw-bold">Benefits <span class="badge fw-400 px-3">KAPS assured</span></h1>
+      <div class="benefits-list">
+        <a href="../../kaps_assured/#certified_inspection" style="text-decoration: none; color: black;">
+          <div class="benefit-item">
+            <span>
+              <img src="{% static 'images/file 5.svg' %}" alt="KAPS Certified Inspection" />
+              KAPS Certified Inspection
+            </span>
+            <span class="arrow text-end"><img src="{% static 'images/arrow.svg' %}" alt="arrow" style="height: 16px;" /></span>
+          </div>
+        </a>
+
+        <a href="../../kaps_assured/#warrenty" style="text-decoration: none; color: black;">
+          <div class="benefit-item">
+            <img src="{% static 'images/warranty 4.svg' %}" alt="KAPS Warranty" />
+            <span>KAPS Warranty</span>
+            <span class="arrow text-end"><img src="{% static 'images/arrow.svg' %}" alt="arrow" style="height: 16px;" /></span>
+          </div>
+        </a>
+
+        <a href="../../kaps_assured/#buyback" style="text-decoration: none; color: black;">
+          <div class="benefit-item">
+            <img src="{% static 'images/commercialization 1.svg' %}" alt="Buyback Assurance" />
+            <span>Buyback Assurance</span>
+            <span class="arrow text-end"><img src="{% static 'images/arrow.svg' %}" alt="arrow" style="height: 16px;" /></span>
+          </div>
+        </a>
+
+        <a href="../../kaps_assured/#exchange" style="text-decoration: none; color: black;">
+          <div class="benefit-item">
+            <img src="{% static 'images/exchange 7.svg' %}" alt="Exchange Assurance" />
+            <span>Exchange Assurance</span>
+            <span class="arrow text-end"><img src="{% static 'images/arrow.svg' %}" alt="arrow" style="height: 16px;" /></span>
+          </div>
+        </a>
+
+        <a href="../../kaps_assured/#loan" style="text-decoration: none; color: black;">
+          <div class="benefit-item">
+            <img src="{% static 'images/personal 1.svg' %}" alt="Easy Loan Option" />
+            <span>Easy Loan Option</span>
+            <span class="arrow text-end"><img src="{% static 'images/arrow.svg' %}" alt="arrow" style="height: 16px;" /></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- similar cars section -->
+
+    <div class="showcase-section">
+      <h2 style="font-weight: 700;">Similar Cars</h2>
+
+      <div class="image-carousel" id="imageCarousel">
+        {% for cars in similar_cars %}
+        <div class="carousel-slide">
+          <a style="text-decoration: none; color: #000;" href="{% url 'car_details' cars.id %}">
+            <img src="{{ cars.images.first.Car_image.url }}" alt="cars" />
+            <h3>{{cars.model_name}}</h3>
+            <p>&#8377; {{cars.price}}</p>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    //================ Whatsapp Script ====================
+    document.querySelector('.get-report').addEventListener('click', function (event) {
+      event.preventDefault()
+      var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+      var whatsappUrl = isMobile ? 'https://wa.me/8137914017' : 'https://web.whatsapp.com/send?phone=8137914017'
+      window.open(whatsappUrl, '_blank')
+    })
+    
+    //================ Similar Cars Script =================
+    document.addEventListener('DOMContentLoaded', (event) => {
+      const words = ['trust', 'confidence', 'safety']
+      let wordIndex = 0
+      const backgroundImages = ["{% static 'images/index_1.jpg' %}", "{% static 'images/index_2.jpg' %}", "{% static 'images/index_3.jpg' %}"]
+    
+      function changeWord() {
+        const dynamicText = document.getElementById('dynamic-text')
+        dynamicText.textContent = words[wordIndex]
+        wordIndex = (wordIndex + 1) % words.length
+      }
+    
+      function changeBackground(index) {
+        const landingContainer = document.getElementById('landing-container')
+        landingContainer.style.backgroundImage = `url(${backgroundImages[index]})`
+        updateDots(index)
+      }
+    
+      function updateDots(activeIndex) {
+        const dots = document.querySelectorAll('.dot')
+        dots.forEach((dot, index) => {
+          dot.classList.remove('active')
+          if (index === activeIndex) {
+            dot.classList.add('active')
+          }
+        })
+      }
+    
+      setInterval(changeWord, 6000) // Change word every 2 seconds
+    
+      // Initialize with the first background image and active dot
+      changeBackground(0)
+      updateDots(0)
+    
+      window.changeBackground = changeBackground
+    })
+    
+    const carousel = document.getElementById('imageCarousel')
+    
+    let isDown = false
+    let startX
+    let scrollLeft
+    
+    carousel.addEventListener('mousedown', (e) => {
+      isDown = true
+      carousel.classList.add('active')
+      startX = e.pageX - carousel.offsetLeft
+      scrollLeft = carousel.scrollLeft
+    })
+    
+    carousel.addEventListener('mouseleave', () => {
+      isDown = false
+      carousel.classList.remove('active')
+    })
+    
+    carousel.addEventListener('mouseup', () => {
+      isDown = false
+      carousel.classList.remove('active')
+    })
+    
+    carousel.addEventListener('mousemove', (e) => {
+      if (!isDown) return
+      e.preventDefault()
+      const x = e.pageX - carousel.offsetLeft
+      const walk = (x - startX) * 3 //scroll-fast
+      carousel.scrollLeft = scrollLeft - walk
+    })
+  </script>
+
+  <script>
+    function toggleShareOptions() {
+      const shareOptions = document.getElementById('shareOptions')
+      if (shareOptions.style.display === 'none' || !shareOptions.style.display) {
+        shareOptions.style.display = 'flex'
+      } else {
+        shareOptions.style.display = 'none'
+      }
+    }
+    
+    function copyLink() {
+      const dummy = document.createElement('textarea')
+      document.body.appendChild(dummy)
+      dummy.value = window.location.href
+      dummy.select()
+      document.execCommand('copy')
+      document.body.removeChild(dummy)
+      alert('Link copied to clipboard!')
+    }
+  </script>
+  <script src="path/to/bootstrap.bundle.min.js"></script>
+  <script src="path/to/bootstrap.bundle.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('.toast').toast('show');
+      });
+  </script>
+
+  {% include 'footer.html' %}
+{% endblock %} {% block scripts %}
+
+{% endblock %}

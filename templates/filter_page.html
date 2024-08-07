@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% block title %}Filters{% endblock %}
+{% block content %}
+<div class="filter-page">
+    <h2 class="pb-3">Filters</h2>
+    <form method="POST" action="{% url 'collections' %}">
+        {% csrf_token %}
+        <div class="filter-container">
+            <div class="filter-labels ">
+                <h3 class="filter-heading" onclick="showOptions('brand-options', this)">Brand</h3>
+                <h3 class="filter-heading" onclick="showOptions('transmission-options', this)">Transmission</h3>
+                <h3 class="filter-heading" onclick="showOptions('year-options', this)">Year</h3>
+            </div>
+            <div class="filter-options-container">
+                <div id="brand-options" class="filter-options">
+                    {% for brand in brands %}
+                        <label>
+                            <input type="checkbox" name="brand" value="{{ brand }}">
+                            {{ brand }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+                <div id="transmission-options" class="filter-options">
+                    {% for transmission in transmission_types %}
+                        <label>
+                            <input type="checkbox" name="transmission" value="{{ transmission }}">
+                            {{ transmission }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+                <div id="year-options" class="filter-options">
+                    {% for year in years %}
+                        <label>
+                            <input type="checkbox" name="year" value="{{ year }}">
+                            {{ year }}
+                        </label><br>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="apply-button">Apply</button>
+    </form>
+</div>
+<style>
+    .filter-page {
+        padding: 20px;
+        height: 100vh;
+        position: relative;
+    }
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+    }
+    .filter-container {
+        display: flex;
+        height: 100vh;
+    }
+    .filter-labels {
+        width: 30%;
+        margin-right: 20px;
+    }
+    .filter-options-container {
+        width: 70%;
+        padding-left: 20px;
+    }
+    .filter-options {
+        display: none;
+    }
+    .filter-heading {
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: black;
+    }
+    .filter-heading.active {
+        color: #104545;
+    }
+    .filter-options label {
+        margin-bottom: 10px;
+        font-weight: 400;
+        font-size: 14px;
+    }
+    .apply-button {
+        border: 1px solid #104545;
+        color: white;
+        background-color: #104545;
+        padding: 8px 18px;
+        width: 40%;
+        border-radius: 3px;
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+    }
+    .apply-button:hover {
+        background-color:white ;
+        color: #104545;
+    }
+</style>
+
+<script>
+    function showOptions(sectionId, element) {
+        // Hide all options
+        var options = document.getElementsByClassName('filter-options');
+        for (var i = 0; i < options.length; i++) {
+            options[i].style.display = 'none';
+        }
+        
+        // Remove active class from all headings
+        var headings = document.getElementsByClassName('filter-heading');
+        for (var i = 0; i < headings.length; i++) {
+            headings[i].classList.remove('active');
+        }
+
+        // Show the selected options
+        var element = document.getElementById(sectionId);
+        if (element.style.display === 'none' || element.style.display === '') {
+            element.style.display = 'block';
+            // Add active class to the clicked heading
+            element.previousElementSibling.classList.add('active');
+        } else {
+            element.style.display = 'none';
+            // Remove active class from the clicked heading
+            element.previousElementSibling.classList.remove('active');
+        }
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,133 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'styles/dash_base.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/pro_management.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/crm.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/user.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/proposal.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/add_product.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/add_user.css' %}" />
+    <link rel="stylesheet" href="{% static 'styles/careers.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  </head>
+  <body>
+    <!-- left side bar -->
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="{% static 'images/footer-logo.svg' %}" alt="Logo" />
+      </div>
+      <div class="sidebar-item" title="Product Management">
+        <a style="text-decoration: none;" href="{% url 'pro_management' %}">
+          <i class="fas fa-tasks"></i>
+          <span>Product Management</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="User Profile">
+        <a style="text-decoration: none;" href="{% url 'users' %}">
+          <i class="fas fa-user"></i>
+          <span>User Profile</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="CRM">
+        <a style="text-decoration: none;" href="{% url 'crm' %}">
+          <i class="fas fa-users"></i>
+          <span>CRM</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="Proposal">
+        <a style="text-decoration: none;" href="{% url 'proposal' %}">
+          <i class="fas fa-file-alt"></i>
+          <span>Proposal</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="Proposal">
+        <a style="text-decoration: none;" href="{% url 'Car_brands' %}">
+          <i class="fas fa-car"></i> 
+          <span>Car Brands</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="Proposal">
+        <a style="text-decoration: none;" href="{% url 'career_data' %}">
+          <i class="fas fa-suitcase"></i>
+          <span>Careers</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="Proposal">
+        <a style="text-decoration: none;" href="{% url "add_happy_club" %}">
+          <i class="fas fa-thumbs-up"></i>
+          <span>Testmonials</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="Proposal">
+        <a style="text-decoration: none;" href="{% url "notification" %}">
+          <i class="fas fa-bell"></i>
+          <span>Notifications</span>
+        </a>
+      </div>
+      <div class="sidebar-item" title="Proposal">
+        <a style="text-decoration: none;" href="{% url 'admin_logout' %}">
+          <i class="fas fa-sign-out-alt"></i> 
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+    <!-- end left sidebar -->
+
+    <!-- nav -->
+    <div class="navbar">
+      <header>
+        <div class="header-right">
+          <form class="d-flex ms-auto" action="{% url 'search_cars' %}" method="get">
+            <div class="input-group">
+                <i id="search-icon" class="fas fa-search" onclick="this.closest('form').submit();"></i>
+                <input id="search-input" type="text" placeholder="Search cars" name="search"/>
+            </div>
+        </form>
+          <img src="{% static 'images/profile-icon.png' %}" alt="Profile" class="profile-pic" />
+        </div>
+      </header>
+    </div>
+    <!-- end nav -->
+
+    <!-- main content -->
+    <div class="main-content">
+      {% block content %}
+      <!-- Page-specific content will be injected here -->
+      {% endblock %}
+    </div>
+    <!-- end main content -->
+
+    <script src="{% static 'dashboard.js' %}"></script>
+    <script>
+          document.addEventListener('DOMContentLoaded', (event) => {
+            const searchIcon = document.getElementById('search-icon');
+            const searchForm = searchIcon.closest('form');
+            
+            searchIcon.addEventListener('click', function() {
+                // Check if the input field is not empty
+                const searchInput = searchForm.querySelector('input[name="search"]');
+                if (searchInput.value.trim() !== '') {
+                    searchForm.submit(); // Submit the form if the input is not empty
+                }
+            });
+        
+            // Optionally, submit the form when the user presses "Enter" in the input field
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); // Prevent the default form submit on "Enter" key
+                    if (searchInput.value.trim() !== '') {
+                        searchForm.submit();
+                    }
+                }
+            });
+        });
+  </script>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+{% extends 'kaps_admin/admin_base.html' %}
+{% block content %}
+
+<style>
+  .careers-section {
+    padding: 20px;
+  }
+  
+  .job-listing {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .job-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    flex: 1 1 calc(33.333% - 20px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 100%%;
+  }
+  
+  .job-info {
+    flex-grow: 1;
+  }
+  
+  .job-info h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+  }
+  
+  .job-info p {
+    margin: 5px 0;
+  }
+  
+  .footer-careers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .badge {
+    align-self: flex-start;
+    text-decoration: none;
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .no-notifications {
+    text-align: center;
+    margin: 170px 0;
+    font-weight: 700;
+  }
+  
+  @media (max-width: 1024px) {
+    .job-card {
+      flex: 1 1 calc(50% - 20px);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .job-card {
+      flex: 1 1 100%;
+    }
+  }
+  
+</style>
+
+<div class="careers-section">
+  <div class="job-listing">
+    {% if notifications %}
+      {% for notify in notifications %}
+        <div class="job-card">
+          <div class="job-info">
+            <p class="posted-date fw-400" style="text-align: left;">"Hi, you have a new {% if notify.is_test %}
+              request for Test Drive
+              {% else %}
+              request for Booking
+              {% endif %} from {{ notify.user_data.name }}. Car Name: {{ notify.car_data.model_name }}, Contact: {{ notify.user_data.mobile }}. Received on: {{ notify.created_at|date:"d/m/Y" }}."</p>
+            <div class="footer-careers">
+            </div>
+          </div>
+          {% if notify.is_test %}
+              <a href="{% url 'dele_notification' 0 notify.id %}" style="color: red; text-decoration: none;">
+                  <i class="fas fa-trash-alt"></i> <!-- Use 'fas' and 'fa-trash-alt' for solid trash icon -->
+              </a>
+          {% else %}
+              <a href="{% url 'dele_notification' 1 notify.id %}" style="color: red; text-decoration: none;">
+                  <i class="fas fa-trash-alt"></i> <!-- Use 'fas' and 'fa-trash-alt' for solid trash icon -->
+              </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="no-notifications">There are no notifications available at the moment.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

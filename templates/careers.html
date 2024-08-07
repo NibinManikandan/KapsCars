@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a,
+  span,
+  div {
+    font-family: "Manrope", sans-serif;
+  }
+
+  .careers-section {
+    padding: 50px 20px;
+    min-height: 70vh;
+
+  }
+
+  .careers-section h2 {
+    font-weight: 700;
+    font-size: 40px;
+    margin-bottom: 40px;
+  }
+
+  .job-listing {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center; /* Center the job-card divs */
+  }
+
+  .job-card {
+    width: 100%;
+    max-width: 1050px;
+    height: 180px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto; /* Center the job-card div */
+    text-align: left; /* Align text to the left */
+  }
+
+  .job-card h3 {
+    font-weight: 500;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    color: black;
+  }
+
+  .footer-careers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    color: black;
+  }
+
+  .footer-careers .location {
+    font-weight: 400;
+    font-size: 17px;
+  }
+
+  .footer-careers .posted-date {
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .job-card {
+      width: 90%;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .job-card {
+      height: auto;
+      padding: 15px;
+    }
+
+    .footer-careers {
+      margin-top: 10px;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .footer-careers .location, .footer-careers .posted-date {
+      font-size: 14px;
+    }
+
+    .job-card h3 {
+      font-size: 22px;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .careers-section h2 {
+      font-size: 32px;
+    }
+
+    .job-card h3 {
+      font-size: 20px;
+    }
+
+    .footer-careers .location, .footer-careers .posted-date {
+      font-size: 12px;
+    }
+  }
+</style>
+
+<div class="careers-section">
+  <h2 style="text-align: left;">Careers</h2>
+  <div class="job-listing">
+    {% if careers %}
+      {% for career in careers %}
+        <div class="job-card">
+          <h3 class="fw-500">{{ career.job_title }}</h3>
+          <p class="experience fw-400">Experience: {{ career.experience }}</p>
+          <p class="experience fw-400">Experience: {{ career.description }}</p>
+          <div class="footer-careers">
+              <p class="location fw-400">Location: {{ career.location }}</p>
+              <p class="posted-date fw-400">Posted on {{ career.date_posted|date:"d/m/Y" }}</p>
+          </div>
+        </div>
+      {% endfor %}
+      <p style="text-align: center; margin-top: 70px; font-weight: 600;">
+        To apply for these positions, please send your resume to 
+        <a href="mailto:sabina@kapscars.com" style="text-decoration: underline; color: rgb(78, 78, 238);">
+          sabina@kapscars.com
+        </a>
+      </p>
+    {% else %}
+      <p style="text-align: center; margin-top: 170px;margin-bottom: 170px; font-weight: 700;">There are no openings available at the moment.</p>
+    {% endif %}
+  </div>
+</div>
+
+{% include "footer.html" %}
+{% endblock %}
+

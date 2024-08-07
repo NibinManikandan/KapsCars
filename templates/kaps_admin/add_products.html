@@ -1,0 +1,212 @@
+{% extends 'kaps_admin/admin_base.html' %}
+{% block content %}
+{% load static %}
+
+<main id="main" class="main">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add a new Car</h5>
+            <form method="post" enctype="multipart/form-data" id="add-product-form">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Brand name</label>
+                    <select id="brand" name="brand" class="form-control" required>
+                        {% for brand in Brand_choices %}
+                        <option value="{{ brand }}">{{ brand }}</option>
+                        {% endfor %}
+                      </select>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Colour</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="colour" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Variant</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="variant" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Model name</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="model_name" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_description" class="col-sm-2 col-form-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea name="description" id="id_description" class="form-control"></textarea>
+                        <div class="text-danger error-message" id="description-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Selling Price</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="price" id="id_price" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Milage</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="milage" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Transmission type</label>
+                    <select id="transmission" name="transmission" class="form-control" required>
+                        {% for trans_type in transmission_choices %}
+                        <option value="{{ trans_type }}">{{ trans_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Inspect rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="inspection" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Reg. Year</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="reg_year" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Reg. Month</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="reg_month" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">KM Driven</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="km" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">RTO</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="rto" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_insure_validity" class="col-sm-2 col-form-label">Insurance validity</label>
+                    <div class="col-sm-10">
+                      <input type="date" name="insure_validity" id="id_insure_validity" class="form-control" placeholder="YYYY-MM-DD">
+                      <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                  </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Insurance Type</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="insure_type" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Number of owners</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="owner" id="id_name" class="form-control">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Fuel type</label>
+                    <select id="fuel" name="fuel" class="form-control" required>
+                        {% for fuel_type in fuel_choices %}
+                        <option value="{{ fuel_type }}">{{ fuel_type }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="row mb-3">
+                    <label for="id_emi" class="col-sm-2 col-form-label">Emi</label>
+                    <div class="col-sm-10">
+                      <select name="emi" id="id_emi" class="form-control">
+                        <option value="">Select</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                      </select>
+                      <div class="text-danger error-message" id="emi-error"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Engine rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="engine" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Suspension rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="suspension" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Brakes rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="barke" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Transmission rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="transmission_rate" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Interior rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="interior" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="id_name" class="col-sm-2 col-form-label">Wheel tyre rating</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="wheels" id="id_name" class="form-control" placeholder="Rate out of 10">
+                        <div class="text-danger error-message" id="name-error"></div>
+                    </div>
+                </div>
+    
+                <div class="row mb-3">
+                    <label for="id_images" class="col-sm-2 col-form-label">Images</label>
+                    <div class="col-sm-10">
+                        <input type="file" name="images" id="id_images" class="form-control" multiple required onchange="handleImageUpload(this.files)">
+                        <div class="error-message" id="images-error"></div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-dark">Add Product</button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</main>
+
+{% endblock %}

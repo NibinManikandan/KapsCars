@@ -1,0 +1,764 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Collections{% endblock %}
+
+{% block content %}
+
+<style>
+/* Global styles */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: #ffffff;
+}
+
+.custom-label {
+    color: black;
+}
+
+/* Sidebar styles */
+.sidebar {
+    height: 100vh;
+    background-color: #2e7d6b;
+    width: 200px;
+    padding: 10px;
+    position: fixed;
+    left: -200px;
+    /* top: 60px; */
+    transition: left 0.5s ease-in-out;
+    z-index: 9999;
+}
+
+.sidebar.active {
+    left: 0; /* Slide in to show */
+}
+
+.logo {
+    margin: 10px 0 20px;
+}
+
+.logo a {
+    font-size: 22px;
+    color: white;
+    padding: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    transition: .3s ease;
+}
+
+.logo a:hover {
+    padding-left: 20px; /* Adjusted to left padding on hover */
+}
+
+.logo a i {
+    font-size: 27px;
+    margin-left: 10px; /* Adjusted to left margin */
+    transition: .5s ease-in-out;
+}
+
+.logo a:hover i {
+    transform: rotate(180deg);
+}
+
+ul {
+    list-style: none;
+}
+
+ul li {
+    padding: 10px;
+    font-weight: 500;
+}
+
+ul li a {
+    color: black;
+    transition: all .5s ease;
+    display: block;
+}
+
+.submenu {
+    display: none; /* Hide submenus by default */
+    padding-left: 20px; /* Indent submenu items */
+}
+
+/* Show submenu when active */
+.submenu.active {
+    display: block;
+}
+
+/* Bottom navbar styles */
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+    padding: 10px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+    justify-content: space-around;
+}
+
+.bottom-navbar a {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    flex: 1;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.bottom-navbar a:hover {
+    background-color: #0056b3;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    padding: 10px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.modal-footer {
+    border-top: 1px solid #ccc;
+    text-align: right;
+}
+
+.modal-footer button {
+    margin-left: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Car listings section */
+.car-listings-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.car-card {
+    width: calc(50% - 10px); /* Adjust spacing between cards */
+    margin-bottom: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px; /* Adjust padding inside the card body for desktop */
+}
+
+.card-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 400;
+}
+
+.card-text {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 400;
+}
+@media(max-width: 768px) {
+    .card-title {
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.card-text {
+    font-size: 12px;
+    font-weight: 400;
+}
+.car-card {
+    margin: 8px;
+}
+}
+
+.btn-primary {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #2e7d6b;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #3e987c;
+}
+.btn-customss {
+    position: fixed;
+    background-color: white;
+    top: 80px;  /* Adjust the position from the top */
+    left: 10px;  /* Adjust the position from the left */
+    z-index: 1000;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 50px;
+    transition: top 0.3s ease;
+}
+
+.icon-1 {
+    height: 25px;
+    width: 25px;
+    z-index: 9999;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .toggle-btn {
+        display: none;
+    }
+
+    .sidebar {
+        display: none; /* Hide sidebar on mobile */
+    }
+
+    .bottom-navbar {
+        display: flex; /* Show bottom navbar on mobile */
+    }
+
+    .car-card {
+        width: calc(100% - 0px); /* Full width on mobile */
+    }
+
+    .card-body {
+        padding: 10px; /* Adjust padding inside the card body for mobile */
+    }
+
+    .card-body .btn-primary {
+        display: block;
+        margin: 0 auto; /* Center the button horizontally */
+        text-align: center; /* Ensure text alignment center */
+    }
+
+    .car-listings-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 0px;
+    }
+
+    .car-listings {
+        flex-grow: 1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0px;
+        margin: 0px;
+    }
+}
+.car-card {
+    position: relative;
+}
+
+.share-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.share-icon i {
+    color: black;
+    font-size: 16px;
+}
+
+.download-btn {
+  display: block;
+  width: 45%;
+  padding: 10px;
+  background-color: white;
+  color: black;
+  border: 1px solid black; /* Ensure border is defined */
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1em;
+  text-decoration: none;
+  margin-top: 10px; /* Add margin to separate from other content */
+}
+.download-btn:hover {
+    color: white;
+    border: none;
+}
+ /* Bottom sheet */
+ .bottom-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border-radius: 10px 10px 0 0;
+            box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.2);
+            transition: bottom 0.3s ease-in-out;
+            z-index: 1000;
+        }
+
+        .bottom-sheet.active {
+            bottom: 0;
+        }
+
+        .bottom-sheet .sheet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .bottom-sheet .sheet-header h2 {
+            margin: 0;
+        }
+
+        .bottom-sheet .sheet-content {
+            padding: 20px;
+        }
+
+        .bottom-sheet .sheet-footer {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .bottom-sheet button {
+            border: 1px solid #104545;
+        color: white;
+        background-color: #104545;
+        padding: 8px 18px;
+        width: 40%;
+        border-radius: 3px;
+        bottom: 20px;
+        right: 20px;
+        cursor: pointer;
+        }
+
+        .bottom-sheet button:hover {
+            background-color:white ;
+            color: #104545;
+        }
+        .fin-car-btn {
+            padding: 15px 25px;
+            background-color: #0A6847;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-left: 0;
+            display: block;
+            max-width: 200px;
+            margin-top: 63%;
+        }
+
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+<!-- Sidebar -->
+<nav class="sidebar">
+    <button class="btn btn-customss" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+        <svg class="icon-1" clip-rule="evenodd" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="m15.344 17.778c0-.414-.336-.75-.75-.75h-5.16c-.414 0-.75.336-.75.75s.336.75.75.75h5.16c.414 0 .75-.336.75-.75zm2.206-4c0-.414-.336-.75-.75-.75h-9.596c-.414 0-.75.336-.75.75s.336.75.75.75h9.596c.414 0 .75-.336.75-.75zm2.45-4c0-.414-.336-.75-.75-.75h-14.5c-.414 0-.75.336-.75.75s.336.75.75.75h14.5c.414 0 .75-.336.75-.75zm2-4c0-.414-.336-.75-.75-.75h-18.5c-.414 0-.75.336-.75.75s.336.75.75.75h18.5c.414 0 .75-.336.75-.75z" fill-rule="nonzero"/>
+        </svg>
+    </button>
+
+    <div class="offcanvas offcanvas-start" style="width: 25%;" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="staticBackdropLabel">Filters</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" style="background-color: #ffffff;">
+            <div>
+                <form method="POST" action="{% url "collections" %}">
+                    {% csrf_token %}
+                    <!-- Brand names -->
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <select id="brand" name="brand" class="form-control">
+                            <option value="">Select Your Brand</option>
+                            {% for brand in car_brand %}
+                                <option value="{{ brand }}" {% if selected_brand == brand %}selected{% endif %}>{{ brand }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Year -->
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <select id="year" name="year" class="form-control">
+                            <option value="">Select Year</option>
+                            {% for year in years %}
+                                <option value="{{ year }}" {% if selected_year == year %}selected{% endif %}>{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Price range -->
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <select id="budget" name="budget" class="form-control" required>
+                            <option value="">Price</option>
+                            <option value="0-10">Less than 10Lac</option>
+                            <option value="10-20">10 to 20Lac</option>
+                            <option value="20-30">20 to 30Lac</option>
+                            <option value="30+">Above 30Lac</option>
+                          </select>
+                    </div>
+
+                    <!-- Transmission type -->
+                    <div class="form-group">
+                        <label for="transmission">Transmission</label>
+                        <select id="transmission" name="transmission" class="form-control">
+                            <option value="">Select Transmission Type</option>
+                            {% for type in transmission_types %}
+                                <option value="{{ type }}" {% if selected_transmission == type %}selected{% endif %}>{{ type }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <!-- Apply Button -->
+                    <div class="button-container">
+                        <button type="submit" class="fin-car-btn">Apply</button>
+                      </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Car Listings Section -->
+{% if cars %}
+<section class="car-listings-section">
+    <div class="car-listings">
+        {% for car in cars %}
+            <div class="car-card">
+                <a href="#">
+                    <img src="{{ car.images.first.Car_image.url }}" class="card-img-top" alt="{{ car.model_name }}">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight: 500;">{{ car.model_name }}</h5>
+                    <p class="card-text">Price: ₹ <span style="font-weight: 700;">{{ car.price }}</span></p>
+                    <p class="card-text" style="font-weight: 700; color: #2e7d6b;">Kaps Certified inspection rating: {{ car.inspection_rating }}/10</p>
+                    <p class="card-text">
+                        {% if car.emi == 'No' %}Emi Not Available
+                        {% else %}Emi Available
+                        {% endif %}
+                    </p>
+                    <p class="card-text">Model: {{ car.reg_year }}</p>
+                    <p class="card-text">Fuel type: {{ car.fuel.Available_fuel_type }}</p>
+                    <a href="{% url 'car_details' car.id %}" class="download-btn"> View full report</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% else %}
+<section class="car-listings-section">
+    <div class="car-listings">
+        <div style="width: 100%; height: 500px; display: flex; justify-content: center; align-items: center;">
+            <p>There is no cars available</p>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- Bottom Navbar -->
+<div class="bottom-navbar">
+    <a href="#" id="sortButton">Sort</a>
+    <a href="{% url "filter" %}" id="filterButton">Filter</a>
+</div>
+
+ <!-- Sort Bottom Sheet -->
+
+<div id="sortBottomSheet" class="bottom-sheet">
+    <div class="sheet-header">
+        <h2 style="font-weight: 600;font-size: 18px;">Sort by Price</h2>
+        <button id="closeSortSheet"  style="color: black; background-color: white; font-weight: 500;font-size: 20px; border: none; text-align: right;">&times;</button>
+    </div>
+    <form method="POST" action="{% url "collections" %}">
+        {% csrf_token %}
+        <div class="sheet-content" id="sortOptions">
+            <!-- Sorting options will be dynamically populated here -->
+            <label><input type="radio" name="budget" value="0-10">Less than 10Lac</label><br>
+            <label><input type="radio" name="budget" value="10-20">10 to 20Lac</label><br>
+            <label><input type="radio" name="budget" value="20-30">20 to 30Lac</label><br>
+            <label><input type="radio" name="budget" value="30+">Above 10Lac</label><br>
+        </div>
+        <div class="sheet-footer">
+            <button type="submit" id="sortApplyButton" >Apply</button>
+        </div>
+    </form>
+</div>
+
+
+<style>
+    .car-card img {
+        height: 380px; /* Set your desired fixed height */
+        width: 100%; /* Maintain aspect ratio */
+        object-fit: cover; /* Ensure the image covers the area without stretching */
+    }
+</style>
+
+
+<script>
+    document.getElementById('sortButton').addEventListener('click', function() {
+        document.getElementById('sortBottomSheet').classList.add('active');
+    });
+
+    document.getElementById('closeSortSheet').addEventListener('click', function() {
+        document.getElementById('sortBottomSheet').classList.remove('active');
+    });
+
+    document.getElementById('sortApplyButton').addEventListener('click', function() {
+        // Apply sort logic here
+        document.getElementById('sortBottomSheet').classList.remove('active');
+    });
+</script>
+
+
+    <!-------------------- Sort by Budget -------------------------->
+    <script>
+    document.getElementById('sortButton').addEventListener('click', function() {
+        fetch('/api/get_budget_choices/')
+            .then(response => response.json())
+            .then(data => {
+                let sortOptions = document.getElementById('sortOptions');
+                sortOptions.innerHTML = ''; // Clear existing options
+                data.budget_choices.forEach(choice => {
+                    let label = document.createElement('label');
+                    let checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.value = choice[0];
+                    label.appendChild(checkbox);
+                    label.appendChild(document.createTextNode(choice[1]));
+                    sortOptions.appendChild(label);
+                    sortOptions.appendChild(document.createElement('br'));
+                });
+            });
+        document.getElementById('sortModal').style.display = 'block';
+    });
+    
+    document.getElementById('closeSortModal').addEventListener('click', function() {
+        document.getElementById('sortModal').style.display = 'none';
+    });
+    
+    document.getElementById('sortApplyButton').addEventListener('click', function() {
+        let selectedOptions = Array.from(document.querySelectorAll('#sortOptions input:checked'))
+                                   .map(checkbox => checkbox.value);
+        fetch('/api/sort_cars/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({selectedOptions})
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Update the UI with sorted data
+            // You can update the car listings here
+            document.getElementById('sortModal').style.display = 'none';
+        });
+    });
+    </script>
+
+<script>
+    // ----------- share car details -----------
+    function shareCarDetails(title, price, model, fuelType, url) {
+    if (navigator.share) {
+        navigator.share({
+            title: `${title} - ₹${price}`,
+            text: `Check out this car: ${title}\nPrice: ₹${price}\nModel: ${model}\nFuel type: ${fuelType}`,
+            url: url
+        }).then(() => {
+            console.log('Thanks for sharing!');
+        }).catch((error) => {
+            console.error('Something went wrong sharing the car details:', error);
+        });
+    } else {
+        // Fallback for browsers that do not support the Web Share API
+        copyToClipboard(url);
+        alert('Link copied to clipboard!');
+    }
+    }
+
+    function copyToClipboard(text) {
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+    }
+
+    // Sidebar and Modal functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const sortButton = document.getElementById('sortButton');
+        const filterButton = document.getElementById('filterButton');
+        const sortModal = document.getElementById('sortModal');
+        const filterModal = document.getElementById('filterModal');
+        const closeSortModal = document.getElementById('closeSortModal');
+        const closeFilterModal = document.getElementById('closeFilterModal');
+        const sortApplyButton = document.getElementById('sortApplyButton');
+        const filterApplyButton = document.getElementById('filterApplyButton');
+
+        sortButton.addEventListener('click', function() {
+            sortModal.style.display = 'flex';
+        });
+
+        filterButton.addEventListener('click', function() {
+            filterModal.style.display = 'flex';
+        });
+
+        closeSortModal.addEventListener('click', function() {
+            sortModal.style.display = 'none';
+        });
+
+        closeFilterModal.addEventListener('click', function() {
+            filterModal.style.display = 'none';
+        });
+
+        sortApplyButton.addEventListener('click', function() {
+            sortModal.style.display = 'none';
+        });
+
+        filterApplyButton.addEventListener('click', function() {
+            filterModal.style.display = 'none';
+        });
+
+        // Submenu functionality for sidebar
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default anchor behavior
+                const targetId = this.getAttribute('data-target');
+                const targetSubmenu = document.getElementById(targetId);
+
+                // Toggle active class on submenu
+                targetSubmenu.classList.toggle('active');
+
+                // Close other submenus
+                document.querySelectorAll('.submenu').forEach(submenu => {
+                    if (submenu !== targetSubmenu) {
+                        submenu.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Close submenus when clicking outside the sidebar
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.sidebar');
+            if (!sidebar.contains(event.target)) {
+                document.querySelectorAll('.submenu').forEach(submenu => {
+                    submenu.classList.remove('active');
+                });
+            }
+        });
+
+        // Prevent closing submenu when clicking on checkboxes or labels inside submenu
+        const checkboxes = document.querySelectorAll('.submenu input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent event from bubbling up to close handler
+            });
+        });
+
+        // Apply button functionality (replace with actual form submission logic)
+        const applyBtn = document.getElementById('applyBtn');
+        applyBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            alert('Apply button clicked!');
+            // Implement your apply logic here
+        });
+    });
+
+    // Bottom Navbar functionality (retained from previous code)
+    document.addEventListener('DOMContentLoaded', function() {
+        const bottomNavbar = document.querySelector('.bottom-navbar');
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarCloseBtn = document.querySelector('.close-btn');
+
+        toggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            bottomNavbar.classList.toggle('hidden');
+        });
+
+        sidebarCloseBtn.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            bottomNavbar.classList.remove('hidden');
+        });
+    });
+</script>
+
+<script>
+    document.addEventListener('scroll', function() {
+        const button = document.querySelector('.btn-customss');
+        if (window.scrollY > 50) { // Adjust the scrollY value as needed
+            button.style.top = '0';
+        } else {
+            button.style.top = '80px';
+        }
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+
+{% include "footer.html" %}
+{% endblock %}

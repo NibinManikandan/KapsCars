@@ -1,0 +1,60 @@
+{% extends 'kaps_admin/admin_base.html' %}
+{% load static %}
+{% block content %}
+
+
+<main id="main" class="main" style="background-color: white;">
+
+    <div class="pagetitle">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1>Car Brands</h1>
+            </div>
+            <div class="col-md-6 text-end">
+                <div class="addproductbutton">
+                    <a href="{% url "add_careers" %}" class="btn btn-dark mt-2">Add Creers</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Page Title -->
+
+    <!-- Recent Sales -->
+    <div class="col-12">
+        <div class="card recent-sales overflow-auto">
+            <div class="card-body">
+                <table class="table table-borderless datatable mt-3 custom-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Job title</th>
+                            <th>Description</th>
+                            <th>Posted on</th>
+                            <th>Last date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for career in career_obj %}
+                        <tr class="align-middle">
+                            <td>{{ career.id }}</td>
+                            <td class="align-middle">{{ career.job_title }}</td>
+                            <td class="align-middle">{{ career.description }}</td>
+                            <td class="align-middle">{{ career.date_posted }}</td>
+                            <td class="align-middle">{{ career.last_date_to_apply }}</td>
+                            <td class="align-middle">
+                                <a class="badge btn btn-warning" href="{% url "del_careers" career.id %}" style="color: red; text-decoration: none;">
+                                    <i class="fa-solid fa-trash-can"></i> <!-- Updated class for Font Awesome 6 -->
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!-- End Recent Sales -->
+
+</main>
+{% comment %} {% url 'delete_brand' brand.id %} {% endcomment %}
+{% endblock %}

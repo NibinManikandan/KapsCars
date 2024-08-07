@@ -1,0 +1,354 @@
+body, h1, h2, h3, h4, h5, h6, p, a, span, div {
+  font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+}
+
+/* Viewport settings */
+@media only screen and (max-width: 768px) {
+  /* Adjustments for tablets and smaller screens */
+  .carousel-slide {
+    width: 80%; /* Example: Adjust width for smaller screens */
+  }
+
+  .button,
+  .find-car-btn,
+  .chat-btn,
+  .contact-btn {
+    padding: 8px 12px; /* Example: Adjust button padding */
+    font-size: 0.8em; /* Example: Adjust font size */
+  }
+}
+
+
+@media only screen and (max-width: 480px) {
+  /* Adjustments for mobile phones */
+  .carousel-slide {
+    width: 100%; /* Example: Full width for mobile screens */
+  }
+
+  .button,
+  .find-car-btn,
+  .chat-btn,
+  .contact-btn {
+    padding: 6px 10px; /* Example: Further adjust button padding */
+    font-size: 0.7em; /* Example: Further reduce font size */
+  }
+}
+
+/* Landing Page Styles */
+
+.landing-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("{% static 'images/landing-background.jpg' %}") no-repeat center center;
+  background-size: cover; /* Ensure the background image covers the container */
+}
+
+.landing-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align to bottom */
+  padding-bottom: 20px; /* Add some padding at the bottom */
+}
+
+
+
+@media (max-width: 1024px) {
+  .landing-container {
+    height: 80vh; /* Decrease height for tablet devices */
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    height: 70vh; /* Decrease height for mobile devices */
+  }
+
+  .landing-background {
+    padding-bottom: 10px; /* Reduce padding at the bottom for mobile devices */
+  }
+
+  .landing-content h1 {
+    font-size: 1.5em; /* Adjust font size for mobile devices */
+  }
+
+  .landing-buttons .button {
+    padding: 10px 15px; /* Adjust button padding for mobile devices */
+    font-size: 0.9em; /* Adjust button font size for mobile devices */
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .carousel-indicators .dot {
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+    .landing-content {
+        color: white;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+  .landing-container {
+    height: 85vh; /* Further decrease height for smaller mobile devices */
+  }
+
+  .landing-background {
+    padding-bottom: 5px; /* Further reduce padding at the bottom for smaller mobile devices */
+  }
+
+  .landing-content h1 {
+    font-size: 2.2em; /* Adjust font size for smaller mobile devices */
+  }
+
+  .landing-buttons .button {
+    padding: 8px 12px; /* Adjust button padding for smaller mobile devices */
+    font-size: 0.8em; /* Adjust button font size for smaller mobile devices */
+  }
+
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+  .carousel-indicators .dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 3px;
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.landing-content {
+  color: white;
+  text-align: center;
+  margin-bottom: 80px; /* Adjust the margin to position above the bottom */
+}
+
+.landing-content h1 {
+  font-size: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-content .highlight {
+  color: red;
+}
+
+.landing-buttons {
+  margin-top: 20px;
+}
+
+.button {
+  text-decoration: none;
+  color: white;
+  background-color: black;
+  padding: 15px 23px;
+  border: 1px solid white;
+  border-radius: 5px;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.button.explore {
+  background-color: white;
+  color: black;
+  padding: 15px 20px;
+}
+
+.button.explore:hover {
+  background-color: #000;
+  color: #ffffff;
+}
+
+.button.sell {
+  /* background-color: black; */
+  color: white;
+  opacity: 0.5;
+  padding: 15px 40px
+}
+
+.button.sell:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.carousel-indicators {
+  margin-top: 30px;
+}
+
+.dot {
+  height: 5px;
+  width: 35px;
+  background-color: #bbb;
+  border-radius: 0%;
+  display: inline-block;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: white;
+}
+
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .landing-content h1 {
+    font-size: 2rem;
+  }
+
+  .landing-content p {
+    font-size: 1rem;
+  }
+
+  .button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    margin: 5px;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-item.large {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .landing-content p {
+    font-size: 2.2rem;
+  }
+
+  .button {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    margin: 5px;
+  }
+}
+
+/* Showcase Section */
+.showcase-section {
+  padding: 5px;
+  text-align: center;
+}
+
+.image-carousel-wrapper {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.image-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  cursor: grab;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 80px; /* Add padding to the bottom */
+}
+
+.carousel-slide {
+  flex: 0 0 auto;
+  width: 400px; /* Adjust width for your design */
+  margin: 0 10px; /* Adjust margins for spacing */
+  text-align: center;
+  scroll-snap-align: start;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 250px; /* Adjust height as needed */
+  object-fit: cover; /* Ensure images fill the container */
+}
+
+/* Thin scroller */
+.image-carousel::-webkit-scrollbar {
+  height: 4px;
+}
+
+.image-carousel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.image-carousel::-webkit-scrollbar-thumb {
+  background: #EEEDEB;
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.image-carousel:hover::-webkit-scrollbar-thumb {
+  background: #347974;
+}
+
+@media (max-width: 768px) {
+  .carousel-slide {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Want to get your dream car from us? section */
+
+.dream-car-section h2 {
+  margin-bottom: 30px;
+
+}
+
+.dream-car-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dream-car-buttons button {
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+
+.contact-btn:hover {
+  background-color: #fff;
+  color: #347974;
+}
+
+.chat-btn:hover {
+  background-color: #347974;
+  color: white;
+}

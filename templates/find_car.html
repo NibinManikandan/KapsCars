@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Find Your Car{% endblock %}
+
+{% block content %}
+
+<style>
+  .find-car-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px ;
+    background-color: #f9f9f9;
+  }
+  
+  /* Styling for the form box */
+  .find-car-box {
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px;
+    box-sizing: border-box;
+    color: black;
+    display: flex; /* Flexbox for inner content */
+    flex-direction: column; /* Column layout */
+    align-items: center; /* Center items */
+  }
+  
+  /* Styling for form elements */
+  .find-car-box h2 {
+    text-align: left;
+    margin-bottom: 25px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    width: 100%; /* Ensure form group takes full width */
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+  }
+  
+  .find-car-btn {
+    width: 100%; /* Full width button */
+    max-width: 200px; /* Optional: set a max-width for the button */
+    padding: 12px;
+    background-color: #347974;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 20px; /* Space above the button */
+  }
+  .button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Full width of the parent container */
+}
+  
+  .find-car-btn:hover {
+    background-color: #285f5a;
+  }
+</style>
+
+<section class="find-car-section">
+  <div class="find-car-box">
+    <h2 style="font-weight: 700;" class="text-start">Find Your Car</h2>
+
+    <form method="POST" action="{% url 'find_a_car' %}" style="width: 100%;">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="budget" >Your Budget</label>
+        <select id="budget" name="budget" class="form-control" required>
+          <option value="">Budget</option>
+          <option value="0-10">Less than 10Lac</option>
+          <option value="10-20">10 to 20Lac</option>
+          <option value="20-30">20 to 30Lac</option>
+          <option value="30+">Above 30Lac</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="fuel">Fuel Preference</label>
+        <select id="fuel" name="fuel" class="form-control" required>
+          <option value="">Fuel type</option>
+          {% for fuel in fuel_choices %}
+          <option value="{{ fuel }}">{{ fuel }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="transmission">Transmission</label>
+        <select id="transmission" name="transmission" class="form-control" required>
+          <option value="">Transmission type</option>
+          {% for value in transmission_types %}
+          <option value="{{ value }}">{{ value }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="button-container">
+        <button type="submit" class="find-car-btn">Find Car</button>
+      </div>    
+    </form>
+
+    <!-- Display filtered cars -->
+    {% if cars %}
+      <h3>Available Cars:</h3>
+      <ul>
+        {% for car in cars %}
+          <li>{{ car.model }} - {{ car.price }} - {{ car.fuel_type }} - {{ car.transmission }}</li>
+        {% empty %}
+          <li>No cars found matching your criteria.</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+</section>
+
+
+{% endblock %}

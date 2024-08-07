@@ -1,0 +1,34 @@
+.policy-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Manrope', sans-serif;
+    line-height: 1.6;
+}
+h2 {
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+h3{
+    font-size: 1.1em;
+}
+p {
+    color: #555;
+    margin-bottom: 15px;
+}
+p strong {
+    color: #000;
+}
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    h2 {
+        font-size: 1.25em;
+    }
+    p {
+        font-size: 0.9em;
+    }
+}

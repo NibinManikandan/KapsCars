@@ -1,0 +1,29 @@
+.image-container.image-1 {
+    grid-column: 1 / 2; /* First column */
+    grid-row: 1 / 3; /* Spanning two rows */
+    height: 45vh; /* Full viewport height */
+}
+
+.image-container.image-2{
+    height: 18vh;
+    width: 94%;
+}
+.image-container.image-3 {
+    grid-column: 2 / 3; /* Second column */
+    height: 25vh; /* Half of the viewport height */
+}
+
+.image-container.image-2 {
+    grid-row: 1 / 2; /* First row */
+}
+
+.image-container.image-3 {
+    grid-row: 2 / 3; /* Second row */
+}
+
+.image-container.image-4,
+.image-container.image-5 {
+    grid-column: span 1; /* Span one column */
+    grid-row: auto; /* Auto rows */
+    height: 21vh; /* Adjustable height for the fourth and fifth images */
+}
