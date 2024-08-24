@@ -21,7 +21,7 @@
     }
 
     .text-content {
-      max-width: 800px; 
+      max-width: 800px;
     }
 
     .text-content h1 {
@@ -48,13 +48,13 @@
 
     @media screen and (max-width: 768px) {
       .component-container {
-        padding: 20px 10px; 
+        padding: 20px 10px;
       }
-      
+
       .text-content h1 {
         font-size: 40px;
       }
-      
+
       .text-content p {
         font-size: 18px;
       }
@@ -70,7 +70,7 @@
       justify-content: flex-start; /* Horizontally align content to the start */
       text-align: start; /* Left align text within the text-content div */
       color: white; /* Set text color */
-      
+
       }
     }
 
@@ -84,7 +84,7 @@
         margin-bottom: 20px;
     }
     }
-  
+
   .custom-section {
     margin: 30px 0;
     border-radius: 5px;
@@ -222,9 +222,9 @@
         float: none;
         display: table;
         color: #4ad1e5;
-        
+
     }
-   
+
     /* Mobile view adjustments */
     @media (max-width: 768px) {
         .counter {
@@ -245,7 +245,7 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-     
+
         .col {
             flex: 1 1 50%; /* Two items per row */
             max-width: 50%;
@@ -279,7 +279,7 @@
   background-color: #ffffff;
   border-radius: 10px;
   border: 1px solid #c3c0c0;
-  height: calc(100% + 20px); 
+  height: calc(100% + 20px);
 }
 
 .address-section-address
@@ -287,7 +287,7 @@
   display: flex;
   justify-content: start;
   margin-top: 20px;
-  
+
 }
 .email-section-address
 {
@@ -295,7 +295,7 @@
   justify-content: center;
   margin-top: 20px;
 
-  
+
 }
 .phone-section-address {
   display: flex;
@@ -308,8 +308,8 @@
 .address-section-address i,
 .email-section-address i,
 .phone-section-address i {
-  color: #104545; 
-  font-size: 1.2rem; 
+  color: #104545;
+  font-size: 1.2rem;
 }
 
 .card-title-address {
@@ -330,13 +330,13 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  
+
   .address-section-address
 {
   display: flex;
   justify-content: start;
   margin-bottom: 10px;
-  
+
 }
 .email-section-address
 {
@@ -344,7 +344,7 @@ a:hover {
   justify-content: start;
   margin-bottom: 10px;
 
-  
+
 }
 .phone-section-address {
   display: flex;
@@ -352,7 +352,7 @@ a:hover {
 
 }
 
-} 
+}
 /--------------------------------------------------------/
 .lead {
         margin-top: 5px;
@@ -394,6 +394,7 @@ a:hover {
       border-radius: 10px;
       width: 230px;
       height: 400px;
+      object-fit: cover;
 
     }
     .mini-conatiner{
@@ -424,12 +425,12 @@ a:hover {
         .rounded-image{
             height: 374px;
         }
-        
+
         .offer-container{
             padding-left:15px ;
-            
+
         }
-       
+
     }
     @media (min-width: 768px) and (max-width: 820px) {
         .rounded-image {
@@ -440,10 +441,10 @@ a:hover {
 
         }
         .mini-conatiner{
-            padding: 0px 0px;            
+            padding: 0px 0px;
         }
     }
-   
+
     @media screen and (max-width: 912px) {
         .rounded-image {
             margin-bottom: 20px;
@@ -518,6 +519,44 @@ img.w-100 {
   }
 }
 
+
+
+
+.position-relative {
+    position: relative;
+}
+
+.image-heading,
+.image-subheading {
+    position: absolute;
+    left: 20px;
+    color: white;
+    margin: 0;
+}
+
+.image-heading {
+    bottom: 55px; /* Adjust this value as needed */
+    font-size: 24px; /* Ensure the heading is prominent */
+}
+
+.image-subheading {
+    bottom: 35px; /* Position the subheading just below the heading */
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+@media screen and (max-width: 768px) {
+    .image-heading {
+        font-size: 20px; /* Adjust font size for smaller screens */
+        bottom: 60px;
+    }
+
+    .image-subheading {
+        font-size: 14px; /* Adjust font size for smaller screens */
+        bottom: 35px;
+    }
+}
+
+
 </style>
 
 <!-- hero-section -->
@@ -525,14 +564,13 @@ img.w-100 {
     <img src="{% static 'images/ban-2.jpg' %}" alt="">
   <div class="text-content">
     <h1>Miles of trust on every road.</h1>
-    <p>We're committed to bridging the gap between reliability and the open road, ensuring that every journey begins with trust.</p>
   </div>
 </div>
 
 <div class="component-container mt-5">
   <div class="row">
     <div class="col-md-6 custom-section ps-0 pe-md-5 pe-0">
-      <img src="{% static 'images/kaps-about.jpg' %}" alt="KAPS Assured">
+      <img src="{% static 'images/Kaps-about.jpg' %}" alt="KAPS Assured">
       <div class="custom-section-content">
         <h2>KAPS Assured</h2>
         <p>We are dedicated to making car ownership accessible, simple, and delightful.
@@ -590,7 +628,7 @@ img.w-100 {
         <p class="count-text">Vehicle Brands Available</p>
       </div>
     </div>
-    
+
   </div>
 </div>
 
@@ -600,14 +638,17 @@ img.w-100 {
 
   <div class="container my-5 py-3 mini-conatiner ">
       <div class="row no-gutters d-flex justify-content-between ">
-          <div class="col-lg-5 align-items-left ">
-              <img class="w-100 shadow rounded-image" src="{% static 'images/team.jpg' %}" />
+          <div class="col-lg-5 align-items-left position-relative">
+            <img class="w-100 shadow rounded-image" src="{% static 'images/shamil.jpg' %}" />
+            <h3 class="image-heading">Shamil T</h3>
+            <p class="image-subheading">'Managing Director'</p>
           </div>
           <div class="col-lg-6 ">
               <div class="content-container">
                   <h3 class="display-6 title-txts fw-bold ">
                       <h3 class="display-6 uppercase-text my-0 ">Team KAPS</h3>
                   </h3>
+                  <p class="lead">"Shamil T", our passionate Managing Director at KapsCars, leads with a love for cars and a commitment to excellence. Under his guidance, KapsCars has become a trusted name, offering top-quality vehicles and exceptional service to all our customers.</p>
                   <p class="lead">At Kaps Cars, we pride ourselves on delivering a seamless, personalized customer service experience. From the moment you walk into our showroom to the finalization of your purchase, our dedicated team ensures a welcoming atmosphere with expert, tailored advice.</p>
                   <p class="lead"> This mindset not only helps us deliver exceptional service but also attracts and retains top talent, whether on our shop floors, in our workshops, or as ambassadors representing us to our valued customers.</p>
               </div>
@@ -661,7 +702,7 @@ img.w-100 {
   </div>
 </div>
 
-  
+
 
 
  <!-- Scrripts section -->

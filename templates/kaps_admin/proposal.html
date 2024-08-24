@@ -2,7 +2,6 @@
 {% load static %}
 {% block content %}
 
-
 <main id="main" class="main" style="background-color: white;">
 
     <div class="pagetitle">
@@ -36,29 +35,34 @@
                         {% for proposal in avail_proposals %}
                         <tr class="align-middle">
                             <td>{{ proposal.id }}</td>
-                                {% if proposal.proposed_user %}
-                                <td class="align-middle">{{proposal.proposed_user.name}}</td>
-                                {% else %}
-                                <td class="align-middle">{{proposal.proposed_staff.seller_name}}</td>
-                                {% endif %}
-                            
-                                {% if proposal.proposed_user %}
-                                <td class="align-middle">{{proposal.proposed_user.mobile}}</td>
-                                {% else %}
-                                <td class="align-middle">{{proposal.proposed_staff.phone}}</td>
-                                {% endif %}
                             {% if proposal.proposed_user %}
-                            <td class="align-middle">User</td>
+                                <td class="align-middle">{{ proposal.proposed_user.name }}</td>
                             {% else %}
-                            <td class="align-middle">Staff</td>
+                                <td class="align-middle">{{ proposal.proposed_staff.seller_name }}</td>
+                            {% endif %}
+                            
+                            {% if proposal.proposed_user %}
+                                <td class="align-middle">{{ proposal.proposed_user.mobile }}</td>
+                            {% else %}
+                                <td class="align-middle">{{ proposal.proposed_staff.phone }}</td>
+                            {% endif %}
+                            
+                            {% if proposal.proposed_user %}
+                                <td class="align-middle">User</td>
+                            {% else %}
+                                <td class="align-middle">Staff</td>
                             {% endif %}
                             <td class="align-middle">{{ proposal.brand_name.Available_brands }}</td>
                             <td class="align-middle">{{ proposal.car_model }}</td>
                             <td class="align-middle">{{ proposal.selling_price }}</td>
                             <td class="align-middle">
-                                <a href="{{ proposal.images.url }}" download>
-                                    <img src="{{ proposal.images.url }}" alt="car" width="50" height="50">
-                                </a>
+                                {% if proposal.images %}
+                                    <a href="{{ proposal.images.url }}" download>
+                                        <img src="{{ proposal.images.url }}" alt="car" width="50" height="50">
+                                    </a>
+                                {% else %}
+                                    <p>No Image</p>
+                                {% endif %}
                             </td>                           
                             <td class="align-middle">
                                 <a class="badge btn btn-warning" href="{% url "delete_proposel" proposal.id %}" style="color: red; text-decoration: none;">

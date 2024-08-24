@@ -9,16 +9,16 @@
     .carousel-inner {
       border-radius: 15px;
     }
-    
+
     .carousel-inner {
-      height: 80vh; /* Set the desired height for the carousel */
+      height: 90vh; /* Set the desired height for the carousel */
     }
-    
+
     .carousel-item img {
       width: 90%;
       height: auto;
     }
-    
+
     /* Desktop view */
     @media (min-width: 1025px) {
       #carouselExampleIndicators {
@@ -41,7 +41,7 @@
       flex: 1;
       margin: 0 5px;
   }
-  
+
   .car-info .buttons {
       display: flex;
       gap: 10px; /* Space between buttons */
@@ -49,7 +49,7 @@
       width: 100%; /* Make sure buttons take up the full width */
       justify-content: start; /* Align items at the start */
   }
-  
+
   .car-info .buttons button {
       display: flex;
       align-items: center;
@@ -60,21 +60,21 @@
       flex: 1; /* Ensure buttons take equal space */
       max-width: none; /* Ensure buttons do not have a max width */
   }
-  
+
   .car-info .test-drive-btn {
       background-color: white;
       color: #2e7d6b;
       border: 1px solid #2e7d6b;
       border-radius: 4px;
   }
-  
+
   .car-info .book-now-btn {
       background-color: #2e7d6b;
       color: white;
-      border: none;
+      border: 1px solid #2e7d6b;
       border-radius: 4px;
   }
-  
+
   .car-info .buttons img {
       width: 20px;
       height: 20px;
@@ -96,13 +96,14 @@
           justify-content: space-between;
           align-items: center;
           z-index: 1000;
+          gap: 5px;
       }
-  
+
       .button-link {
           flex: 1; /* Allow buttons to take equal space */
           text-align: center; /* Center the text */
       }
-  
+
       .test-drive-btn, .book-now-btn {
           width: 100%; /* Ensure buttons take full width */
           padding: 15px 0; /* Adjust padding for better touch targets */
@@ -110,35 +111,39 @@
           border: none; /* Remove border for cleaner look */
           border-radius: 0; /* Remove border radius for full width buttons */
       }
-  
+
       .test-drive-btn {
           background-color: white;
           color: #2e7d6b;
           border-right: 1px solid #ddd; /* Border between buttons */
       }
-  
+
       .book-now-btn {
           background-color: #2e7d6b;
           color: white;
       }
-  
+
       .button-icon {
           width: 20px;
           height: 20px;
           margin-right: 8px;
       }
+
+      .report-buttons pt-3{
+          margin-right: 20px;
+      }
   }
-    
+
     /* Mobile and iPad views */
     @media (max-width: 1024px) {
       #carouselExampleIndicators {
         margin: 0; /* Remove margin for mobile and iPad views */
       }
-    
+
       .carousel-inner {
         height: auto; /* Adjust height if necessary for mobile */
       }
-    
+
       .carousel-item img {
         width: 100%;
         height: auto;
@@ -148,66 +153,76 @@
       font-size: 16px;
       font-weight: 600;
     }
+
+    @media (max-width: 500px) {
+        .carousel-item img {
+        width: 100%;
+        height: 35vh;
+      }
+    }
+
     /*car details*/
     @media (max-width: 300px) {
       .overview-grid {
         grid-template-columns: repeat(4, 1fr); /* 4 columns */
         grid-template-rows: auto auto; /* 2 rows */
       }
-    
+
       .overview-item:nth-child(9) {
         grid-column: 1 / -1; /* Span all columns */
       }
     }
-    
+
     .car-info {
       padding: 20px;
     }
-    
+
     .car-info h2 {
       margin-bottom: 10px;
     }
-    
+
     .car-info p {
       margin: 5px 0;
     }
-    
+
     .car-info .price span {
       font-weight: bold;
       color: #2e7d6b;
     }
-    
+
     .car-info .inspection span {
       font-weight: bold;
       color: #2e7d6b;
     }
 
     /*Similar car*/
-    
+
     .showcase-section {
       padding: 5px;
       text-align: center;
+      height: 82vh;
     }
     .showcase-section h2 {
       text-align: start;
-      margin-left: 30px;
+      margin-left: 20px;
     }
-    
+
     .image-carousel-wrapper {
       display: flex;
       justify-content: center;
       overflow: hidden;
     }
-    
+
     .image-carousel {
       display: flex;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       cursor: grab;
       -webkit-overflow-scrolling: touch;
-      padding-bottom: 80px;
+      padding-bottom: 85px;
+      height: 70vh;
     }
-    
+
     .carousel-slide {
       flex: 0 0 auto;
       width: 400px;
@@ -215,52 +230,78 @@
       text-align: start;
       scroll-snap-align: start;
     }
-    
+
     .carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 15px;
     }
-    
+
     .image-carousel::-webkit-scrollbar {
       height: 4px;
     }
-    
+
     .image-carousel::-webkit-scrollbar-track {
       background: transparent;
     }
-    
+
     .image-carousel::-webkit-scrollbar-thumb {
       background: #eeedeb;
       border-radius: 10px;
       transition: background 0.3s ease;
     }
-    
+
     .image-carousel:hover::-webkit-scrollbar-thumb {
       background: #347974;
     }
-    
+
     @media (max-width: 768px) {
+      .showcase-section {
+      padding: 5px;
+      text-align: center;
+      height: 65vh;
+    }
+    .showcase-section h2 {
+      text-align: start;
+      margin-left: 20px;
+    }
+
+    .image-carousel-wrapper {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .image-carousel {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 55px;
+      height: 58vh;
+    }
       .carousel-slide {
         width: 95%;
         margin: 5px;
+        height: 45vh;
       }
-    
+
       .carousel-inner {
         border-radius: 0px;
       }
     }
-    
+
     @media (max-width: 768px) {
       .report-buttons {
         display: flex;
-        flex-direction: column;
+        justify-content: center;
       }
       .report-table {
-        margin-right: 0px;
+        margin-left: 0px;
       }
-    
+
       .report-buttons a {
         margin-bottom: 10px; /* Add some space between buttons */
       }
@@ -268,33 +309,34 @@
         font-size: 12px;
       }
     }
-    
+
   </style>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Car Banner Section -->
 
-  <div id="carouselExampleIndicators" class="carousel slide">
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        {% for image in car_images %}
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}" aria-label="Slide {{ forloop.counter }}"></button>
+        {% endfor %}
     </div>
     <div class="carousel-inner">
-      {% for image in car_images %}
-        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
-          <img src="{{ image.Car_image.url }}" class="d-block w-100" alt="car_images" />
-        </div>
-      {% endfor %}
+        {% for image in car_images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ image.Car_image.url }}" class="d-block w-100" alt="car_image {{ forloop.counter }}">
+            </div>
+        {% endfor %}
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
     </button>
-  </div>
+</div>
 
   <div class="details">
     <!-- Car Details Section -->
@@ -348,7 +390,7 @@
 
     <!-- Car Over View -->
 
-    <section class="car-overview" style="margin: 30px;">
+    <section class="car-overview" style="margin: 10px;">
       <h1 class="text-start fw-bold pt-3" style="font-size: 1.5em">Car Overview</h1>
       <div class="overview-grid">
         <div class="overview-item">
@@ -392,7 +434,7 @@
 
     <!-- Inspection Report Section -->
 
-    <section class="inspection-report pb-5 pt-5" style="margin: 30px;">
+    <section class="inspection-report pb-5 pt-5" style="margin: 20px;">
       <h2 class="text-start fw-bold">Inspection Report</h2>
 
       <table class="report-table">
@@ -447,7 +489,7 @@
 
     <!-- Benifit Section -->
 
-    <section class="benefits" style="margin: 40px;">
+    <section class="benefits" style="margin: 25px;">
       <h1 class="text-start fw-bold">Benefits <span class="badge fw-400 px-3">KAPS assured</span></h1>
       <div class="benefits-list">
         <a href="../../kaps_assured/#certified_inspection" style="text-decoration: none; color: black;">
@@ -521,25 +563,25 @@
       var whatsappUrl = isMobile ? 'https://wa.me/8137914017' : 'https://web.whatsapp.com/send?phone=8137914017'
       window.open(whatsappUrl, '_blank')
     })
-    
+
     //================ Similar Cars Script =================
     document.addEventListener('DOMContentLoaded', (event) => {
       const words = ['trust', 'confidence', 'safety']
       let wordIndex = 0
       const backgroundImages = ["{% static 'images/index_1.jpg' %}", "{% static 'images/index_2.jpg' %}", "{% static 'images/index_3.jpg' %}"]
-    
+
       function changeWord() {
         const dynamicText = document.getElementById('dynamic-text')
         dynamicText.textContent = words[wordIndex]
         wordIndex = (wordIndex + 1) % words.length
       }
-    
+
       function changeBackground(index) {
         const landingContainer = document.getElementById('landing-container')
         landingContainer.style.backgroundImage = `url(${backgroundImages[index]})`
         updateDots(index)
       }
-    
+
       function updateDots(activeIndex) {
         const dots = document.querySelectorAll('.dot')
         dots.forEach((dot, index) => {
@@ -549,39 +591,39 @@
           }
         })
       }
-    
+
       setInterval(changeWord, 6000) // Change word every 2 seconds
-    
+
       // Initialize with the first background image and active dot
       changeBackground(0)
       updateDots(0)
-    
+
       window.changeBackground = changeBackground
     })
-    
+
     const carousel = document.getElementById('imageCarousel')
-    
+
     let isDown = false
     let startX
     let scrollLeft
-    
+
     carousel.addEventListener('mousedown', (e) => {
       isDown = true
       carousel.classList.add('active')
       startX = e.pageX - carousel.offsetLeft
       scrollLeft = carousel.scrollLeft
     })
-    
+
     carousel.addEventListener('mouseleave', () => {
       isDown = false
       carousel.classList.remove('active')
     })
-    
+
     carousel.addEventListener('mouseup', () => {
       isDown = false
       carousel.classList.remove('active')
     })
-    
+
     carousel.addEventListener('mousemove', (e) => {
       if (!isDown) return
       e.preventDefault()
@@ -600,7 +642,7 @@
         shareOptions.style.display = 'none'
       }
     }
-    
+
     function copyLink() {
       const dummy = document.createElement('textarea')
       document.body.appendChild(dummy)

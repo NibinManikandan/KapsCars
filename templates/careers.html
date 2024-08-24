@@ -19,26 +19,24 @@
   .careers-section {
     padding: 50px 20px;
     min-height: 70vh;
+}
 
-  }
-
-  .careers-section h2 {
+.careers-section h2 {
     font-weight: 700;
     font-size: 40px;
     margin-bottom: 40px;
-  }
+}
 
-  .job-listing {
+.job-listing {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    align-items: center; /* Center the job-card divs */
-  }
+    align-items: center;
+}
 
-  .job-card {
+.job-card {
     width: 100%;
     max-width: 1050px;
-    height: 180px;
     background-color: #FFFFFF;
     border-radius: 10px;
     box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.25);
@@ -46,76 +44,72 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin: 0 auto; /* Center the job-card div */
-    text-align: left; /* Align text to the left */
-  }
+    margin: 0 auto;
+    text-align: left;
+}
 
-  .job-card h3 {
+.job-card h3 {
     font-weight: 500;
     font-size: 24px;
     margin: 0 0 10px 0;
     color: black;
-  }
+}
 
-  .footer-careers {
+.footer-careers {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
     color: black;
-  }
+}
 
-  .footer-careers .location {
+.footer-careers .location {
     font-weight: 400;
     font-size: 17px;
-  }
+}
 
-  .footer-careers .posted-date {
+.footer-careers .posted-date {
     font-weight: 400;
     font-size: 16px;
-  }
+}
 
-  @media screen and (max-width: 1200px) {
+@media screen and (max-width: 1200px) {
     .job-card {
-      width: 90%;
+        width: 90%;
     }
-  }
+}
 
-  @media screen and (max-width: 768px) {
-    .job-card {
-      height: auto;
-      padding: 15px;
-    }
-
+@media screen and (max-width: 768px) {
     .footer-careers {
-      margin-top: 10px;
-      flex-direction: row;
-      align-items: flex-start;
-      gap: 10px;
+        margin-top: 10px;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
     }
 
     .footer-careers .location, .footer-careers .posted-date {
-      font-size: 14px;
+        font-size: 14px;
     }
 
     .job-card h3 {
-      font-size: 22px;
+        font-size: 22px;
     }
-  }
+}
 
-  @media screen and (max-width: 576px) {
+@media screen and (max-width: 576px) {
     .careers-section h2 {
-      font-size: 32px;
+        font-size: 32px;
     }
 
     .job-card h3 {
-      font-size: 20px;
+        font-size: 20px;
     }
 
     .footer-careers .location, .footer-careers .posted-date {
-      font-size: 12px;
+        font-size: 12px;
     }
-  }
+}
+
 </style>
 
 <div class="careers-section">
@@ -134,7 +128,7 @@
         </div>
       {% endfor %}
       <p style="text-align: center; margin-top: 70px; font-weight: 600;">
-        To apply for these positions, please send your resume to 
+        To apply for these positions, please send your resume to
         <a href="mailto:sabina@kapscars.com" style="text-decoration: underline; color: rgb(78, 78, 238);">
           sabina@kapscars.com
         </a>

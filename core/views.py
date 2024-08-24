@@ -15,13 +15,14 @@ from django.contrib.auth import login
 from .models import UserLogin
 import urllib.parse
 from django.contrib.auth.models import User
+from django.views.decorators.cache import never_cache
 
 
-# User Login 
+# User Login
 def send_otp(mobile, otp):
     url = "https://www.fast2sms.com/dev/bulkV2"
     message = f"Welcome to KAPS! Your OTP is {otp}. Please enter this code to proceed. This OTP is valid for a few minutes."
-    
+
     # URL encode the payload
     payload = {
         'sender_id': 'FSTSMS',
@@ -31,19 +32,19 @@ def send_otp(mobile, otp):
         'numbers': mobile
     }
     encoded_payload = urllib.parse.urlencode(payload)
-    
+
     headers = {
         'authorization': 'COPELWmYGZMgDi3TSFVAI19zUQJujk0x4eqtHrfcdwloX8sN5hkSylZhed7m6JDbp9MLif4UzXsjONga',
         'Content-Type': 'application/x-www-form-urlencoded',
         'Cache-Control': 'no-cache',
     }
-    
+
     response = requests.post(url, data=encoded_payload, headers=headers)
-    
+
     print(f"Sending OTP {otp} to {mobile}")
     print(f"Response Status Code: {response.status_code}")
     print(f"Response Text: {response.text}")  # For debugging purposes
-    
+
     if response.status_code == 200:
         try:
             response_data = response.json()
@@ -58,16 +59,18 @@ def send_otp(mobile, otp):
         print(f"Failed to send OTP. HTTP Status Code: {response.status_code}")
 
 
+
+
 def user_login(request):
     if request.method == 'POST':
         name = request.POST['name']
         email = request.POST['email']
         mobile = request.POST['mobile']
-        
+
         # Generate a random 4-digit OTP
         otp = random.randint(1000, 9999)
         print(f"Generated OTP: {otp} for mobile: {mobile}")
-        
+
         # Save user details and OTP in the session
         request.session['user_data'] = {
             'name': name,
@@ -75,25 +78,27 @@ def user_login(request):
             'mobile': mobile,
             'otp': otp
         }
-        
+
         # Send OTP to user's mobile number
         send_otp(mobile, otp)
 
         if not UserLogin.objects.filter(email=email).exists():
             user_obj=UserLogin(name=name,email=email,mobile=mobile)
             user_obj.save()
-        
+
         # Redirect to OTP verification page
         return redirect('otp')
-    
+
     # Check if the user is already logged in
     if 'is_logged_in' in request.session and request.session['is_logged_in']:
         return redirect('collections')
-    
+
     return render(request, 'login.html')
 
 
+
 from django.urls import reverse
+@never_cache
 def otp_verification(request):
     if request.method == 'POST':
         otp_1 = request.POST.get('otp_1')
@@ -105,49 +110,70 @@ def otp_verification(request):
         user_data = request.session.get('user_data')
         if not user_data:
             return HttpResponse("Session expired. Please login again.")
-        
+
         stored_otp = str(user_data.get('otp'))
         print(f"Entered OTP: {entered_otp}, Stored OTP: {stored_otp}")
-        
+
         if entered_otp == stored_otp:
             user, created = User.objects.get_or_create(
                 username=user_data['email'],
                 defaults={'email': user_data['email'], 'first_name': user_data['name'], 'last_name': ''},
             )
-            
+
             user_obj = UserLogin.objects.get(email=user_data['email'])
             user_obj.is_active = True
             user_obj.save()
             request.session['is_logged_in'] = True
             login(request, user)
-            
+
             # Debug statements to check session keys
             sell_car_key = request.session.get('sell_car_key')
             find_car_key = request.session.get('find_car_key')
-            car_details_key = request.session.get('car_details')
-            futured_car_key = request.session.get('car_details')
-            
-            
-            
+            car_details_key = request.session.get('car_details_key')
+            futured_car_key = request.session.get('car_details_key')
+
+
+
             if sell_car_key:
                 del request.session['sell_car_key']
                 return redirect(sell_car_key)
-            
+
             if find_car_key:
                 del request.session['find_car_key']
                 return redirect(find_car_key)
-            
+
             if car_details_key:
+                del request.session['car_details_key']
                 return redirect(car_details_key)
-            
+
             if futured_car_key:
+                del request.session['futured_car_key']
                 return redirect(futured_car_key)
-            
+
             return redirect('home')
         else:
             messages.error(request, 'Invalid OTP. Please try again.')
-    
+
     return render(request, 'otp.html')
+
+
+
+def resend_otp(request):
+    user_data = request.session.get('user_data')
+    if not user_data:
+        return JsonResponse({'status': 'error', 'message': 'Session expired. Please login again.'})
+
+    mobile = user_data.get('mobile')
+    otp = random.randint(1000, 9999)
+
+    # Update the OTP in the session
+    request.session['user_data']['otp'] = otp
+    print(f"Regenerated OTP: {otp} for mobile: {mobile}")
+
+    # Resend OTP to user's mobile number
+    send_otp(mobile, otp)
+
+    return JsonResponse({'status': 'success', 'message': 'OTP has been resent successfully.'})
 
 
 
@@ -165,13 +191,13 @@ def home(request):
 
 
 def futured_cars(request, id):
-    if request.user.is_authenticated:    
+    if request.user.is_authenticated:
         cars = Cars.objects.get(id=int(id))
         return render(request, 'car_details.html', {'cars':cars})
     else:
-        request.session['car_details'] = request.path
+        request.session['car_details_key'] = request.path
         return redirect('login')
-    
+
 
 
 # find Your Car Form Submission
@@ -219,7 +245,7 @@ def find_a_car(request):
         return render(request, 'find_car.html', context)
     else:
         request.session['find_car_key'] = 'find_a_car'
-        
+
         return redirect('login')
 
 
@@ -339,46 +365,46 @@ def sell_a_car(request):
 
 
 
-# # Proposal Success 
+# # Proposal Success
 def proposal_success(request):
     return render(request, 'proposal_success.html')
 
 
 
-# Happiness Club 
+# Happiness Club
 def happiness_club_view(request):
     happiness_club_members = HappinessClub.objects.all()
     return render(request, 'happiness_club.html', {'happiness_club_members': happiness_club_members})
-    
 
 
 
-# Careers Page 
+
+# Careers Page
 def careers(request):
     careers = Career.objects.all()
     return render(request, 'careers.html', {'careers': careers})
 
-    
 
-#kaps assured 
+
+#kaps assured
 def kaps_assured(request):
     return render(request, 'kaps_assured.html')
 
 
 
-#about us 
+#about us
 def about_us(request):
     return render(request, 'about_us.html')
 
 
-#car details 
+#car details
 def car_details(request, id):
     if request.user.is_authenticated:
         cars = Cars.objects.get(id=int(id))
         image_list = Car_Image.objects.filter(car__id=cars.id).all()
         car_price = cars.price
         similar_cars = Cars.objects.filter(price__gte=car_price)
-        
+
         context={
             'cars':cars,
             'car_images':image_list,
@@ -386,11 +412,11 @@ def car_details(request, id):
             }
         return render(request, 'car_details.html', context)
     else:
-        request.session['car_details'] = request.path
+        request.session['car_details_key'] = request.path
         return redirect('login')
 
 
-#emi 
+#emi
 def emi(request):
     return render(request, 'emi.html')
 
@@ -419,7 +445,7 @@ def test_drive(request,id):
         test_drive_obj.save()
     else:
         messages.error(request, 'You have already given submission for Test drive.')
-        
+
         return redirect(f'../car_details/{id}/')
     return render(request, 'proposal_success.html')
 
@@ -435,11 +461,11 @@ def book_now(request,id):
         test_drive_obj.save()
     else:
         messages.error(request, 'You have already given submission for Booking.')
-        
+
         return redirect(f'../car_details/{id}/')
 
     return render(request, 'proposal_success.html')
-    
+
 
 
 

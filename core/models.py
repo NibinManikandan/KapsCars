@@ -26,7 +26,7 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.Available_brands
-    
+
 
 class Fuel_type(models.Model):
     Available_fuel_type = models.CharField(max_length=20, blank=True, null=True)
@@ -67,16 +67,16 @@ class Cars(models.Model):
     emi = models.CharField(max_length=3, choices=[('Yes', 'Yes'), ('No', 'No')], default='No')  # Add this line
 
     # ==================== inspection-related fields ========================
-    engine_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    suspension_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    brakes_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    transmission_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    interior_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
-    wheels_tyres_rating = models.DecimalField(max_digits=2, decimal_places=1, default=0.0)
+    engine_rating = models.IntegerField()
+    suspension_rating = models.IntegerField()
+    brakes_rating = models.IntegerField()
+    transmission_rating = models.IntegerField()
+    interior_rating = models.IntegerField()
+    wheels_tyres_rating = models.IntegerField()
 
     def __str__(self):
         return f"{self.reg_year} {self.model_name}"
-    
+
 
 class Car_Image(models.Model):
     car = models.ForeignKey(Cars, on_delete = models.CASCADE, related_name = 'images')
@@ -96,10 +96,10 @@ class SellYourCar(models.Model):
     fuel_type = models.ForeignKey(Fuel_type, on_delete=models.CASCADE, related_name='type_of_fuel')
     km_driven = models.IntegerField()
     selling_price = models.DecimalField(max_digits=10, decimal_places=2)
-    images = models.ImageField(upload_to='sell_car_images/', blank=True, null=True)
+    images = models.ImageField(upload_to='sell_car_images/')
     proposed_user = models.ForeignKey(UserLogin,on_delete=models.CASCADE,null=True,blank=False,related_name='selled_user')
     proposed_staff = models.ForeignKey(Crm_Profile,on_delete=models.CASCADE,null=True,blank=False,related_name='selled_staf')
-    
+
     def __str__(self):
         return f"{self.brand_name.Available_brands} {self.car_model} - {self.car_reg_number}"
 
@@ -122,7 +122,7 @@ class HappinessClub(models.Model):
     owner_image = models.ImageField(upload_to='happiness_club/', blank=True,)
     testimonial = models.CharField(max_length=200)
 
-    
+
 
 
 class Test_drive(models.Model):
@@ -134,7 +134,7 @@ class Test_drive(models.Model):
 
     def __str__(self):
         return f"{self.user_data.name} {self.car_data.model_name}"
-    
+
 
 class Book_now(models.Model):
     user_data = models.ForeignKey(UserLogin, on_delete=models.CASCADE, related_name='u_data')
@@ -145,4 +145,3 @@ class Book_now(models.Model):
 
     def __str__(self):
         return f"{self.user_datas.name} {self.car_datas.model_name}"
-    

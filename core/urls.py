@@ -19,13 +19,14 @@ urlpatterns = [
 
     #emi
     path('emi/', views.emi, name='emi'),
-    
+
     #login
     path('login/',views.user_login, name='login'),
     path('otp/', views.otp_verification , name='otp'),
+    path('resend-otp/', views.resend_otp, name='resend_otp'),
     path('logout/', views.logout, name='logout'),
 
-    
+
     # happiness club
     path('happiness_club_view/', views.happiness_club_view, name='happiness_club_view'),
 
@@ -40,7 +41,7 @@ urlpatterns = [
     path('proposal-success/', views.proposal_success, name='proposal_success'),
 
     path('test_drive/<int:id>', views.test_drive, name='test_drive'),
-    path('book_now/<int:id>', views.book_now, name='book_now'),    
+    path('book_now/<int:id>', views.book_now, name='book_now'),
 
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
     path('terms_and_conditions/', views.terms_and_conditions, name='terms_and_conditions'),

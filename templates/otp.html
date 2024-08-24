@@ -105,7 +105,7 @@
                 <input type="text" id="otp_4" name="otp_4" maxlength="1" required oninput="moveFocus(event, null)">
             </div>
             <button type="submit" style="font-weight: 600;">Login</button>
-            <a href="#" class="resend" style="font-weight: 400;">Didn't receive the OTP? <span style="font-weight: 600;">Resend</span> </a>
+            <a href="#" class="resend" style="font-weight: 400;">Didn't receive the OTP? <span style="font-weight: 600;" id="resend-otp-link">Resend</span> </a>
             {% if error %}
                 <p style="color: red;">{{ error }}</p>
             {% endif %}
@@ -118,6 +118,29 @@
                 document.getElementById(nextFieldId).focus();
             }
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#resend-otp-link').click(function(e) {
+                e.preventDefault(); // Prevent the default anchor link behavior
+
+                $.ajax({
+                    url: '{% url "resend_otp" %}', // URL to your resend_otp view
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            alert(response.message); // Display success message
+                        } else {
+                            alert(response.message); // Display error message
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred while resending OTP.'); // Handle errors
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
